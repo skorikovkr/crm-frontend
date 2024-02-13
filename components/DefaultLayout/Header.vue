@@ -57,13 +57,12 @@ const currentUser = currentUserStore.user;
     </div>
 
     <div class="header_right-part flex flex-row">
-      <div class="cta flex flex-row pr-4">
-        <DefaultLayoutCTA
-          v-if="companyInfo"
-          :phone="companyInfo.phone"
-          :schedule="companyInfo.schedule"
-        />
-      </div>
+      <DefaultLayoutCTA
+        v-if="companyInfo"
+        :phone="companyInfo.phone"
+        :schedule="companyInfo.schedule"
+        class="pr-4"
+      />
       <div class="profile-button bg-teal-500 rounded-lg h-[32px] w-[32px] flex items-center justify-center">
         <div class="name-letter text-white font-medium text-center">
           {{ currentUser?.name[0] }}

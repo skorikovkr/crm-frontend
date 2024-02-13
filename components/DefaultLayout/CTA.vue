@@ -6,11 +6,13 @@ defineProps<{
 </script>
 
 <template>
-  <div class="schedule pr-4 text-gray-500 font-medium text-sm my-auto">
-    <time>{{ schedule }}</time>
+  <div class="cta flex flex-row">
+    <div class="schedule pr-4 text-gray-500 font-medium text-sm my-auto">
+      <time>{{ schedule }}</time>
+    </div>
+    <a
+      class="block text-gray-500 font-medium text-sm my-auto"
+      :href="'tel:' + phone"
+    >{{ phone }}</a>
   </div>
-  <a
-    class="block text-gray-500 font-medium text-sm my-auto"
-    :href="'tel:' + phone"
-  >{{ phone }}</a>
 </template>

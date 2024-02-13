@@ -7,13 +7,14 @@ currentUserStore.setUser(1, "Test user");
 </script>
 
 <template>
-  <div class="container min-h-[100vh] flex flex-col justify-between min-w-[100vw] max-w-[100vw]">
+  <div class="layout-container relative min-h-[100vh] flex flex-col">
     <DefaultLayoutHeader
       :company-info="companyInfo"
+      class="sticky top-0"
     />
-    <div class="w-full">
+    <main class="w-full flex-1">
       <slot />
-    </div>
+    </main>
     <DefaultLayoutFooter
       :company-info="companyInfo"
     />

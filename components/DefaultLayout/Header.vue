@@ -1,10 +1,8 @@
 <script setup lang="ts">
 import type { CompanyInfo } from "~/types/CompanyInfo";
-import type { User } from "~/types/User";
 
 const props = defineProps<{
-  companyInfo: CompanyInfo | null,
-  currentUser: User | null
+  companyInfo: CompanyInfo | null
 }>();
 
 const navbarItems = [
@@ -22,6 +20,8 @@ const navbarItems = [
   },
 ];
 const logoAlt = computed(() => `Логотип компании "${props.companyInfo?.name}"`);
+const currentUserStore = useMyCurrentUserStore();
+const currentUser = currentUserStore.user;
 </script>
 
 <template>

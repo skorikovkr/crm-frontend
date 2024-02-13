@@ -10,11 +10,11 @@ export default defineNuxtConfig({
       autoprefixer: {},
     },
   },
-  modules: ["@nuxtjs/tailwindcss", "nuxt-primevue"],
+  modules: ["@nuxtjs/tailwindcss", "nuxt-primevue", "@pinia/nuxt"],
   primevue: {
     options: {
       unstyled: true
     },
     importPT: { from: path.resolve(__dirname, "./presets/wind-full/").replace(/\\/g, '/') },
-  },
+  }
 });

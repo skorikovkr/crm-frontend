@@ -22,10 +22,15 @@ const navbarItems = [
 const logoAlt = computed(() => `Логотип компании "${props.companyInfo?.name}"`);
 const currentUserStore = useMyCurrentUserStore();
 const currentUser = currentUserStore.user;
+
+const isProfileDropdownVisible = ref(false);
+const onProfileIconClick = () => {
+  isProfileDropdownVisible.value = !isProfileDropdownVisible.value;
+};
 </script>
 
 <template>
-  <header class="header flex flex-row justify-between px-[80px] py-[24px] relative">
+  <header class="header flex flex-row justify-between px-[80px] py-[24px] relative border-b-[1px] border-surface-200">
     <nav class="header_navbar bg-white">
       <ul class="flex flex-row gap-6">
         <li
@@ -56,18 +61,24 @@ const currentUser = currentUserStore.user;
       </NuxtLink>
     </div>
 
-    <div class="header_right-part flex flex-row">
+    <div class="header_right-part flex flex-row relative">
       <DefaultLayoutCTA
         v-if="companyInfo"
         :phone="companyInfo.phone"
         :schedule="companyInfo.schedule"
         class="pr-4"
       />
-      <div class="profile-button bg-teal-500 rounded-lg h-[32px] w-[32px] flex items-center justify-center">
+      <button
+        class="profile-button bg-teal-500 rounded-lg h-[32px] w-[32px] flex items-center justify-center"
+        @click="onProfileIconClick"
+      >
         <div class="name-letter text-white font-medium text-center">
           {{ currentUser?.name[0] }}
         </div>
-      </div>
+      </button>
+      <DefaultLayoutProfileDropdown
+        :is-visible="isProfileDropdownVisible"
+      />
     </div>
   </header>
 </template>

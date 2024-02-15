@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-[1500px]">
+  <div>
     Hello
   </div>
 </template>

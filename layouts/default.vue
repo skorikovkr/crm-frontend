@@ -1,9 +1,11 @@
 <script setup lang="ts">
-import type { CompanyInfo } from '~/types/CompanyInfo';
+import type { Company } from '~/types/Company';
+import type { User } from '~/types/User';
 
-const { data: companyInfo } = await useFetch<CompanyInfo>('/api/company/info?id=1');
-const currentUserStore = useMyCurrentUserStore();
-currentUserStore.setUser(1, "Test user");
+const currentUserStore = useCurrentUserStore();
+currentUserStore.setUser((await useFetch<User>(`/api/user/${1}`)).data.value ?? null);
+const { data: companyInfo } = await useFetch<Company>(`/api/company/${currentUserStore.user?.currentCompanyId}`);
+
 </script>
 
 <template>

@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import type { CompanyInfo } from '~/types/CompanyInfo';
+import type { Company } from '~/types/Company';
 
 const props = defineProps<{
-  companyInfo: CompanyInfo | null
+  companyInfo: Company | null
 }>();
 
 const logoAlt = computed(() => `Логотип компании "${props.companyInfo?.name}"`);
@@ -34,4 +34,4 @@ const currentYear = new Date().getFullYear();
       <small class="font-normal text-gray-500">&copy; {{ currentYear }} {{ companyInfo?.name }}, Все права защищены</small>
     </div>
   </footer>
-</template>
+</template>~/types/Company

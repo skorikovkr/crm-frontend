@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import type { CompanyInfo } from "~/types/CompanyInfo";
+import type { Company } from "~/types/Company";
 
 const props = defineProps<{
-  companyInfo: CompanyInfo | null
+  companyInfo: Company | null
 }>();
 
 const navbarItems = [
@@ -20,7 +20,7 @@ const navbarItems = [
   },
 ];
 const logoAlt = computed(() => `Логотип компании "${props.companyInfo?.name}"`);
-const currentUserStore = useMyCurrentUserStore();
+const currentUserStore = useCurrentUserStore();
 const currentUser = currentUserStore.user;
 
 const isProfileDropdownVisible = ref(false);
@@ -31,8 +31,8 @@ const onProfileIconClick = () => {
 
 <template>
   <header class="header flex flex-row justify-between px-[80px] py-[24px] relative border-b-[1px] border-surface-200">
-    <nav class="header_navbar bg-white">
-      <ul class="flex flex-row gap-6">
+    <nav class="header_navbar bg-white flex items-center">
+      <ul class="flex flex-row gap-6 my-auto">
         <li
           v-for="item in navbarItems"
           :key="item.text"
@@ -81,4 +81,4 @@ const onProfileIconClick = () => {
       />
     </div>
   </header>
-</template>
+</template>~/types/Company

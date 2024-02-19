@@ -34,4 +34,4 @@ const currentYear = new Date().getFullYear();
       <small class="font-normal text-gray-500">&copy; {{ currentYear }} {{ companyInfo?.name }}, Все права защищены</small>
     </div>
   </footer>
-</template>~/types/Company
+</template>

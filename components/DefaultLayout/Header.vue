@@ -81,4 +81,4 @@ const onProfileIconClick = () => {
       />
     </div>
   </header>
-</template>~/types/Company
+</template>

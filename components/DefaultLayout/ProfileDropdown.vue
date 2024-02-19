@@ -18,7 +18,7 @@ const { data: companies } = await useFetch<Company[]>('/api/company/getAll');
 
 <template>
   <div 
-    class="absolute w-[224px] top-[32px] right-0 shadow-md bg-white rounded-2xl"
+    class="absolute w-[224px] top-[32px] right-0 shadow-2xl bg-white rounded-2xl"
     :class="{ hidden: !isVisible }"
   >
     <Dropdown
@@ -26,7 +26,9 @@ const { data: companies } = await useFetch<Company[]>('/api/company/getAll');
       :options="companies ?? []"
       option-label="company"
       :pt="{
-        root: { class: 'w-full flex justify-between py-3 px-4 h-[61px]' },
+        root: {
+          class: 'w-full flex justify-between py-3 px-4 h-[61px] cursor-pointer'
+        },
         input: {
           class: 'p-0'
         },
@@ -34,17 +36,17 @@ const { data: companies } = await useFetch<Company[]>('/api/company/getAll');
           class: 'pt-3'
         },
         panel: {
-          class: 'bg-white shadow-none p-3 pb-1 rounded-b-2xl border-t-[1px] border-surface-200'
+          class: 'bg-white p-0 pt-0 pb-3 rounded-b-2xl rounded-t-none border-t-[1px] border-surface-200 border-b-6 rounded-2xl shadow-xl'
         },
         item: ({ props, state, context }) => ({
-          class: (context.focused ? 'bg-slate-100' : undefined)
+          class: 'pt-3 px-3 cursor-pointer'
         })
       }"
     >
       <template #value="slotProps">
         <div
           v-if="slotProps.value"
-          class="flex flex-col align-items-center roun"
+          class="flex flex-col align-items-center"
         >
           <div class="font-medium text-sm">
             {{ (slotProps.value as Company).fullName }}

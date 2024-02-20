@@ -6,7 +6,11 @@ const props = defineProps<{
 }>();
 
 const logoAlt = computed(() => `Логотип компании "${props.companyInfo?.name}"`);
-const currentYear = new Date().getFullYear();
+const date = new Date();
+const now_utc = Date.UTC(date.getUTCFullYear(), date.getUTCMonth(),
+                date.getUTCDate(), date.getUTCHours(),
+                date.getUTCMinutes(), date.getUTCSeconds());
+const currentYear = new Date(now_utc).getFullYear();
 </script>
 
 <template>

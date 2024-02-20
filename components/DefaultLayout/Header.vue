@@ -30,7 +30,7 @@ const onProfileIconClick = () => {
 </script>
 
 <template>
-  <header class="header flex flex-row justify-between px-[80px] py-[24px] relative border-b-[1px] border-surface-200">
+  <header class="header flex sticky top-0 flex-row justify-between px-[80px] py-[24px] border-b-[1px] border-surface-200">
     <nav class="header_navbar bg-white flex items-center">
       <ul class="flex flex-row gap-6 my-auto">
         <li
@@ -78,6 +78,7 @@ const onProfileIconClick = () => {
       </button>
       <DefaultLayoutProfileDropdown
         :is-visible="isProfileDropdownVisible"
+        :companies="currentUser?.companies"
       />
     </div>
   </header>

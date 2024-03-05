@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 definePageMeta({ middleware: ["auth"] });
 
-const user = useUser();
+const { user } = useUserStore();
 </script>
 
 <template>

@@ -10,7 +10,7 @@ export default defineNuxtConfig({
       autoprefixer: {},
     },
   },
-  modules: ["@nuxtjs/tailwindcss", "nuxt-primevue", "@pinia/nuxt"],
+  modules: ["@nuxtjs/tailwindcss", "nuxt-primevue", "@pinia/nuxt", "@pinia-plugin-persistedstate/nuxt"],
   runtimeConfig: {
     public: {
       backendUrl: process.env.NUXT_PUBLIC_BACKEND_URL,

@@ -3,7 +3,7 @@ definePageMeta({ middleware: ["guest"] });
 
 const router = useRouter();
 const route = useRoute();
-const { login } = useAuth();
+const { login } = useUserStore();
 
 const data = reactive({
   email: "",

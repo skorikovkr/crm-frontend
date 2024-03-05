@@ -1,5 +1,7 @@
 export enum Roles {
-  Manager,
   Admin,
-  Owner
+  FurnitureFabricManager,
+  FurnitureMakerOwner,
+  FurnitureMakerAdmin,
+  FurnitureMakerManager,
 }

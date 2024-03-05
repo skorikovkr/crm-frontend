@@ -12,7 +12,9 @@ const handleError = () => clearError({ redirect: '/' })
   <NuxtLayout>
     <div class="error-section">
       <h2>{{ error?.statusCode }}</h2>
-      <button @click="handleError">Clear errors</button>
+      <button @click="handleError">
+        Clear errors
+      </button>
     </div>
   </NuxtLayout>>
 </template>

@@ -1,11 +1,8 @@
-import type { Company } from "./Company";
 import type { Roles } from "./Roles";
 
 export interface User {
   id: number,
   name: string,
-  currentCompanyId: number,
+  email: string,
   role: Roles,
-  companiesIds?: number[],
-  companies?: Company[]
 }

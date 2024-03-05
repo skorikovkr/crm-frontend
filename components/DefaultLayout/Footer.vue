@@ -2,15 +2,11 @@
 import type { Company } from '~/types/Company';
 
 const props = defineProps<{
-  companyInfo: Company | null
+  company: Company | null
 }>();
 
-const logoAlt = computed(() => `Логотип компании "${props.companyInfo?.name}"`);
-const date = new Date();
-const now_utc = Date.UTC(date.getUTCFullYear(), date.getUTCMonth(),
-                date.getUTCDate(), date.getUTCHours(),
-                date.getUTCMinutes(), date.getUTCSeconds());
-const currentYear = new Date(now_utc).getFullYear();
+const logoAlt = computed(() => `Логотип компании "${props.company?.name}"`);
+const currentYear = getUTCDate(new Date()).getFullYear();
 </script>
 
 <template>
@@ -21,21 +17,21 @@ const currentYear = new Date(now_utc).getFullYear();
         class="block"
       >
         <img
-          v-if="companyInfo"
+          v-if="company"
           class="h-[32px]"
-          :src="companyInfo.logoSrc"
+          :src="company.logoSrc"
           :alt="logoAlt"
         >
       </NuxtLink>
       <DefaultLayoutCTA 
-        v-if="companyInfo"
-        :phone="companyInfo.phone"
-        :schedule="companyInfo.schedule"
+        v-if="company"
+        :phone="company.phone"
+        :schedule="company.schedule"
       />
     </div>
     <Divider />
     <div class="footer_socials pb-16">
-      <small class="font-normal text-gray-500">&copy; {{ currentYear }} {{ companyInfo?.name }}, Все права защищены</small>
+      <small class="font-normal text-gray-500">&copy; {{ currentYear }} {{ company?.name }}, Все права защищены</small>
     </div>
   </footer>
-</template>
+</template>~/utils/getUTCDate

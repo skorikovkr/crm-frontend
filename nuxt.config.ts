@@ -11,10 +11,22 @@ export default defineNuxtConfig({
     },
   },
   modules: ["@nuxtjs/tailwindcss", "nuxt-primevue", "@pinia/nuxt"],
+  runtimeConfig: {
+    public: {
+      backendUrl: process.env.NUXT_PUBLIC_BACKEND_URL,
+      frontendUrl: process.env.NUXT_PUBLIC_FRONTEND_URL,
+    },
+  },
+  imports: {
+    dirs: ["./utils"],
+  },
   primevue: {
     options: {
       unstyled: true
     },
     importPT: { from: path.resolve(__dirname, "./presets/wind-full/").replace(/\\/g, '/') },
+  },
+  experimental: {
+    asyncContext: true,
   }
 });

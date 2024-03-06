@@ -74,8 +74,5 @@ export const useUserStore = defineStore(
       resetPassword,
       refresh,
     };
-  },
-  {
-    persist: true,
   }
 );

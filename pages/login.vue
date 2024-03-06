@@ -1,6 +1,8 @@
 <script setup lang="ts">
 definePageMeta({ middleware: ["guest"] });
 
+//TODO: тут тоже не должно быть layout
+
 const router = useRouter();
 const route = useRoute();
 const { login } = useUserStore();

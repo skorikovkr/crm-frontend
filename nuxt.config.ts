@@ -15,6 +15,9 @@ export default defineNuxtConfig({
     public: {
       backendUrl: process.env.NUXT_PUBLIC_BACKEND_URL,
       frontendUrl: process.env.NUXT_PUBLIC_FRONTEND_URL,
+      persistedState: {
+        storage: 'localStorage'
+      }
     },
   },
   imports: {
@@ -27,6 +30,9 @@ export default defineNuxtConfig({
     importPT: { from: path.resolve(__dirname, "./presets/wind-full/").replace(/\\/g, '/') },
   },
   experimental: {
-    asyncContext: true,
+    asyncContext: true
+  },
+  routeRules: {
+    '/company/*/crm/**': { ssr: false },
   }
 });

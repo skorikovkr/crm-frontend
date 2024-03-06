@@ -1,9 +1,4 @@
 <script setup lang="ts">
-import type { Company } from "~/types/Company";
-
-const props = defineProps<{
-  companyInfo: Company | null
-}>();
 
 const navbarItems = [
   {
@@ -19,9 +14,10 @@ const navbarItems = [
     url: "#"
   },
 ];
-const logoAlt = computed(() => `Логотип компании "${props.companyInfo?.name}"`);
-const currentUserStore = useCurrentUserStore();
-const currentUser = currentUserStore.user;
+
+const companyStore = useCompanyStore();
+const logoAlt = computed(() => `Логотип компании "${companyStore.current?.name}"`);
+const userStore = useUserStore();
 
 const isProfileDropdownVisible = ref(false);
 const onProfileIconClick = () => {
@@ -53,9 +49,9 @@ const onProfileIconClick = () => {
         class="block relative left-[-50%]"
       >
         <img
-          v-if="companyInfo"
+          v-if="companyStore.current"
           class="h-[32px]"
-          :src="companyInfo.logoSrc"
+          :src="companyStore.current.logoSrc"
           :alt="logoAlt"
         >
       </NuxtLink>
@@ -63,23 +59,26 @@ const onProfileIconClick = () => {
 
     <div class="header_right-part flex flex-row relative">
       <DefaultLayoutCTA
-        v-if="companyInfo"
-        :phone="companyInfo.phone"
-        :schedule="companyInfo.schedule"
+        v-if="companyStore.current"
+        :phone="companyStore.current.phone"
+        :schedule="companyStore.current.schedule"
         class="pr-4"
       />
-      <button
-        class="profile-button bg-teal-500 rounded-lg h-[32px] w-[32px] flex items-center justify-center"
-        @click="onProfileIconClick"
-      >
-        <div class="name-letter text-white font-medium text-center">
-          {{ currentUser?.name[0] }}
-        </div>
-      </button>
-      <DefaultLayoutProfileDropdown
-        :is-visible="isProfileDropdownVisible"
-        :companies="currentUser?.companies"
-      />
+      <ClientOnly>
+        <button
+          v-if="companyStore.isUserInCompany"
+          class="profile-button bg-teal-500 rounded-lg h-[32px] w-[32px] flex items-center justify-center"
+          @click="onProfileIconClick"
+        >
+          <div class="name-letter text-white font-medium text-center">
+            {{ userStore.user?.name[0] }}
+          </div>
+        </button>
+        <DefaultLayoutProfileDropdown
+          v-if="companyStore.isUserInCompany"
+          :is-visible="isProfileDropdownVisible"
+        />
+      </ClientOnly>
     </div>
   </header>
 </template>

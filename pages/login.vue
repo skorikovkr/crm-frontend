@@ -34,8 +34,7 @@ const {
     <NuxtLink to="/">
       HOME
     </NuxtLink>
-
-    <!-- Session Status -->
+    
     <div>{{ status }}</div>
 
     <form @submit.prevent="submit">

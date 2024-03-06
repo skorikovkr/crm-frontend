@@ -6,7 +6,7 @@ const { user } = useUserStore();
 
 <template>
   <div>
-    <h1>Profile of {{ user?.email }}</h1>
+    <h1>Profile of {{ user?.email }} {{ user?.role }}</h1>
     <div>
       <NuxtLink to="/">
         Home

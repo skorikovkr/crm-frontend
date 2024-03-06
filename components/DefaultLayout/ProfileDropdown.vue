@@ -1,32 +1,27 @@
 <script lang="ts" setup>
 import type { Company } from '~/types/Company';
 import { Roles } from '~/types/Roles';
-import type { User } from '~/types/User';
 
 defineProps({
   isVisible: {
     type: Boolean,
     default: false
-  },
-  companies: {
-    type: Object as () => Company[],
-    default: () => [] as Object
   }
 });
 
-const currentUserStore = useCurrentUserStore();
-const currentUser = currentUserStore.user;
-const selectedCompany = currentUserStore.user?.companies?.find(c => c.id === currentUserStore.user?.currentCompanyId) ?? null;
-
+const userStore = useUserStore();
+const companyStore = useCompanyStore();
+const { data: companies, pending } = await useFetch(`/api/company/getAll`);  // TODO: позже сделать получение всех компаний пользователя (либо вкладывать список всех компаний пользователя в самом User) 
 </script>
 
 <template>
-  <div 
+  <div
+    v-if="!pending"
     class="absolute w-[224px] top-[32px] right-0 shadow-2xl bg-white rounded-2xl"
     :class="{ hidden: !isVisible }"
   >
     <Dropdown
-      v-model="selectedCompany"
+      v-model="companyStore.current"
       :options="companies ?? []"
       option-label="company"
       :pt="{
@@ -90,7 +85,7 @@ const selectedCompany = currentUserStore.user?.companies?.find(c => c.id === cur
             Мои заказы
           </NuxtLink>
         </li>
-        <li v-if="currentUser?.role === Roles.Owner">
+        <li v-if="userStore.user?.role === Roles.FurnitureMakerOwner">
           <NuxtLink
             class="block py-2 pl-4 w-full h-[37px] hover:bg-slate-100"
             to="organizations"

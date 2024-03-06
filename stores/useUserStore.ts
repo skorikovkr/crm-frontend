@@ -11,7 +11,7 @@ export const useUserStore = defineStore(
 
     const isLoggedIn = computed(() => !!user.value);
 
-    const get = async () => {
+    const refresh = async () => {
       try {
         user.value = await $laravelFetch<User>("/api/user");
       } catch (error: any) {
@@ -25,12 +25,12 @@ export const useUserStore = defineStore(
     async function login(credentials: LoginCredentials) {
       if (isLoggedIn.value) return;
       await $laravelFetch("/login", { method: "post", body: credentials });
-      await get();
+      await refresh();
     }
 
     async function register(credentials: RegisterCredentials) {
       await $laravelFetch("/register", { method: "post", body: credentials });
-      await get();
+      await refresh();
     }
 
     async function resendEmailVerification() {
@@ -72,7 +72,7 @@ export const useUserStore = defineStore(
       logout,
       forgotPassword,
       resetPassword,
-      get,
+      get: refresh,
     };
   },
   {

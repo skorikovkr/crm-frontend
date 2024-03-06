@@ -8,6 +8,7 @@ export const useCompanyStore = defineStore(
     const userStore = useUserStore();
 
     const isUserInCompany = computed(() => true);
+    const logoAlt = computed(() => `Логотип компании &quot;${current.value?.name}&quot;`);
 
     async function fetch(id: number) {
       //current.value = await $laravelFetch<Company>(`/company/${id}`, { method: "get" });
@@ -17,6 +18,7 @@ export const useCompanyStore = defineStore(
     return {
       current,
       isUserInCompany,
+      logoAlt,
       fetch
     };
   }

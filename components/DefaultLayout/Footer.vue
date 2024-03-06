@@ -1,7 +1,6 @@
 <script setup lang="ts">
 
-const company = useCompanyStore();
-const logoAlt = computed(() => `Логотип компании "${company.current?.name}"`);
+const companyStore = useCompanyStore();
 const currentYear = getUTCDate(new Date()).getFullYear();
 </script>
 
@@ -13,23 +12,23 @@ const currentYear = getUTCDate(new Date()).getFullYear();
         class="block"
       >
         <img
-          v-if="company.current"
+          v-if="companyStore.current"
           class="h-[32px]"
-          :src="company.current.logoSrc"
-          :alt="logoAlt"
+          :src="companyStore.current.logoSrc"
+          :alt="companyStore.logoAlt"
         >
       </NuxtLink>
       <DefaultLayoutCTA 
-        v-if="company.current"
-        :phone="company.current.phone"
-        :schedule="company.current.schedule"
+        v-if="companyStore.current"
+        :phone="companyStore.current.phone"
+        :schedule="companyStore.current.schedule"
       />
     </div>
     <Divider />
     <div class="footer_socials pb-16">
       <small
-        v-if="company.current"
-        class="font-normal text-gray-500">&copy; {{ currentYear }} {{ company.current.name }}, Все права защищены
+        v-if="companyStore.current"
+        class="font-normal text-gray-500">&copy; {{ currentYear }} {{ companyStore.current.name }}, Все права защищены
       </small>
     </div>
   </footer>

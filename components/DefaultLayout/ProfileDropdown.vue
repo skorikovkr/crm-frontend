@@ -16,11 +16,11 @@ const { data: companies, pending } = await useFetch(`/api/company/getAll`);  // 
 
 <template>
   <div
-    v-if="!pending"
     class="absolute w-[224px] top-[32px] right-0 shadow-2xl bg-white rounded-2xl"
     :class="{ hidden: !isVisible }"
   >
     <Dropdown
+      v-if="!pending"
       v-model="companyStore.current"
       :options="companies ?? []"
       option-label="company"
@@ -72,7 +72,7 @@ const { data: companies, pending } = await useFetch(`/api/company/getAll`);  // 
         <li>
           <NuxtLink
             class="block py-2 pl-4 w-full h-[37px] hover:bg-slate-100"
-            to="profile"
+            to="/profile"
           >
             Профиль
           </NuxtLink>
@@ -96,7 +96,7 @@ const { data: companies, pending } = await useFetch(`/api/company/getAll`);  // 
       </ul>
       <NuxtLink
         class="block w-full py-2 pl-4 h-[45px] hover:bg-slate-100"
-        to="logout"
+        to="/logout"
       >
         Выйти
       </NuxtLink>

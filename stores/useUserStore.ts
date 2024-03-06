@@ -44,8 +44,8 @@ export const useUserStore = defineStore(
 
     async function logout() {
       if (!isLoggedIn.value) return;
-      await $laravelFetch("/logout", { method: "post" });
       user.value = null;
+      await $laravelFetch("/logout", { method: "post" });
       await router.push("/login");
     }
 
@@ -72,7 +72,7 @@ export const useUserStore = defineStore(
       logout,
       forgotPassword,
       resetPassword,
-      get: refresh,
+      refresh,
     };
   },
   {

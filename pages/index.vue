@@ -14,8 +14,8 @@ const application = ref({
   phone: '',
   email: ''
 });
-const error = ref<string | null>(null);
-const success = ref<string | null>(null);
+const sendApplicationError = ref<string | null>(null);
+const sendApplicationSuccess = ref<string | null>(null);
 
 const sendApplication = async () => {
   let data = null;
@@ -24,18 +24,22 @@ const sendApplication = async () => {
       body: application.value,
       method: 'post'
     });
-    success.value = data.message;
+    sendApplicationSuccess.value = data.message;
   } catch (err) {
-    error.value = data?.message;
+    sendApplicationError.value = data?.message;
   }
 }
 
 watch(visible, () => {
   if (!visible.value) {
-    success.value = null;
-    error.value = null;
+    sendApplicationSuccess.value = null;
+    sendApplicationError.value = null;
   }
 })
+
+const { pending, error, data: organizations } = await useLaravelFetch<any>('/api/organizations');
+console.log(organizations.value);
+
 </script>
 
 <template>
@@ -53,14 +57,14 @@ watch(visible, () => {
         <label for="phone" class="font-semibold w-6rem">Телефон</label>
         <InputText v-model="application.phone" id="phone" class="flex-auto" autocomplete="off" />
       </div>
-      <div v-show="error" class="flex align-items-center gap-3 mb-5">
+      <div v-show="sendApplicationError" class="flex align-items-center gap-3 mb-5">
         <p for="phone" class="font-semibold w-6rem text-red-800">
-          {{ error }}
+          {{ sendApplicationError }}
         </p>
       </div>
-      <div v-show="success" class="flex align-items-center gap-3 mb-5">
+      <div v-show="sendApplicationSuccess" class="flex align-items-center gap-3 mb-5">
         <p for="phone" class="font-semibold w-6rem text-green-600">
-          {{ success }}
+          {{ sendApplicationSuccess }}
         </p>
       </div>
       <div class="flex justify-content-end gap-2">
@@ -71,14 +75,51 @@ watch(visible, () => {
         />
       </div>
     </Dialog>
-    <NuxtLink to="/login">
-      <Button label="Зайти в личный кабинет" />
-    </NuxtLink>
-    <Button
-      label="Оставить заявку" 
-      @click="visible = true" 
-    />
-    <h3>С нами сотрудничают:</h3>
+
+    <div
+      class="
+        about
+        relative
+        pt-12
+        mb-4
+        overflow-hidden
+        block
+        z-10
+        h-[500px]
+        bg-no-repeat
+        bg-cover
+        bg-[url('/index_page_about.jpg')]
+        before:content-['']
+        before:absolute
+        before:inset-0
+        before:block
+        before:bg-gradient-to-r
+        before:from-white
+        before:to-transparent
+        before:z-[-5]
+      "
+    >
+      <h1 class="text-3xl font-semibold mb-4">О нас</h1>
+      <p class="w-1/2 mb-4">Компания является мебельной фабрикой, которая уже 15 лет производит мебельные детали, столешницы, фасады и другие материалы под заказ. Компания сотрудничает посредством B2B с мебельщиками.</p>
+      <Button
+        label="Оставить заявку" 
+        @click="visible = true" 
+      />
+    </div>
+
+    <div
+      v-if="!pending && !error"
+      class="partners"
+    >
+      <h3 class="text-3xl font-semibold mb-4">С нами сотрудничают:</h3>
+      <div
+        v-for="org in organizations" 
+        :key="org.id" 
+        class="organization"
+      >
+        <h4>{{ org.name }}</h4>
+      </div>
+    </div>
   </div>
 </template>
 

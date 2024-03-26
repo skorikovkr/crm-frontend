@@ -1,6 +1,26 @@
 <template>
   <div class="layout-container relative min-h-[100vh] flex flex-col">
-    <main class="w-full flex-1">
+    <header class="header flex sticky top-0 flex-row justify-between px-[80px] py-[24px] border-b-[1px] border-surface-200">
+      <div class="header_logo absolute left-[50%] top-[30%]">
+        <NuxtLink
+          to="/"
+          class="block relative left-[-50%] top-[-50%] font-serif font-medium text-2xl"
+        >
+          Мебельная Компания
+        </NuxtLink>
+      </div>
+      <NuxtLink
+        to="/login" 
+        class="ml-auto"
+      >
+        <Button
+          severity="secondary"
+          text
+          label="Зайти в личный кабинет" 
+        />
+      </NuxtLink>
+    </header>
+    <main class="flex-1 mx-auto w-full max-w-3xl h-full px-4 sm:px-6 xl:max-w-5xl xl:px-0">
       <slot />
     </main>
   </div>

@@ -20,7 +20,7 @@ const sendApplicationSuccess = ref<string | null>(null);
 const sendApplication = async () => {
   let data = null;
   try {
-    data = await $laravelFetch('/api/application', {
+    data = await $laravelFetch('/api/applications', {
       body: application.value,
       method: 'post'
     });
@@ -38,7 +38,6 @@ watch(visible, () => {
 })
 
 const { pending, error, data: organizations } = await useLaravelFetch<any>('/api/organizations');
-console.log(organizations.value);
 
 </script>
 

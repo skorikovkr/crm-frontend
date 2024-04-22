@@ -109,4 +109,4 @@ const { data: companies, pending } = await useFetch(`/api/company/getAll`);  // 
     visibility: hidden;
     display: none;
   }
-</style>
+</style>~/types/Role

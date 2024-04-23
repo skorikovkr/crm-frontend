@@ -1,6 +1,8 @@
 <template>
   <div>
-    <NuxtLink to="/company/create">Создать новую</NuxtLink>
+    <NuxtLink to="/company/create">
+      Создать новую
+    </NuxtLink>
   </div>
 </template>
 

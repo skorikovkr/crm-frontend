@@ -87,9 +87,17 @@
         :value="orgType?.id"
       >
 
-      <input id="logo" type="file" name="logo" accept="image/png, image/jpeg"/>
+      <input
+        id="logo"
+        type="file"
+        name="logo"
+        accept="image/png, image/jpeg"
+      >
 
-      <Button type="submit" label="Сохранить" />
+      <Button
+        type="submit"
+        label="Сохранить"
+      />
     </form>
   </div>
 </template>

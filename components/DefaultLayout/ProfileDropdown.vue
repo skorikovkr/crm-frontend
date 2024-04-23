@@ -75,7 +75,9 @@ const handleCompanyChange = async (e: {
             </div>
           </template>
           <template v-else>
-            <div class="font-medium text-sm pt-2">{{ userStore.user?.name }}</div>
+            <div class="font-medium text-sm pt-2">
+              {{ userStore.user?.name }}
+            </div>
           </template>
         </div>
       </template>

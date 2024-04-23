@@ -17,6 +17,7 @@ const navbarItems = [
 
 const companyStore = useCompanyStore();
 const userStore = useUserStore();
+const config = useRuntimeConfig();
 const { isLoggedIn } = storeToRefs(userStore);
 
 const isProfileDropdownVisible = ref(false);
@@ -55,7 +56,7 @@ watch(isLoggedIn, () => {
         <img
           v-if="companyStore.current"
           class="h-[32px]"
-          :src="companyStore.current.logoSrc"
+          :src="config.public.backendUrl + '/' + companyStore.current.logo_src?.replace('public', 'storage')"
           :alt="companyStore.logoAlt"
         >
       </NuxtLink>
@@ -64,8 +65,8 @@ watch(isLoggedIn, () => {
     <div class="header_right-part flex flex-row relative">
       <DefaultLayoutCTA
         v-if="companyStore.current"
-        :phone="companyStore.current.phone"
-        :schedule="companyStore.current.schedule"
+        :phone="companyStore.current.phone ?? 'Нет телефона.'"
+        :schedule="companyStore.current.schedule ?? 'Нет расписания'"
         class="pr-4"
       />
       <ClientOnly>

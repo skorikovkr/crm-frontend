@@ -6,9 +6,9 @@ const companyStore = useCompanyStore();
 useSeoMeta({
   title: companyStore.current?.name,
   ogTitle: companyStore.current?.name,
-  description: companyStore.current?.fullName,
-  ogDescription: companyStore.current?.fullName,
-  ogImage: companyStore.current?.logoSrc
+  description: companyStore.current?.description,
+  ogDescription: companyStore.current?.description,
+  ogImage: companyStore.current?.logo_src?.replace("public", "storage")
 })
 </script>
 

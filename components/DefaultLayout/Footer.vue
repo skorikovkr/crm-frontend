@@ -1,5 +1,7 @@
 <script setup lang="ts">
 
+const config = useRuntimeConfig();
+
 const companyStore = useCompanyStore();
 const currentYear = getUTCDate(new Date()).getFullYear();
 </script>
@@ -14,7 +16,7 @@ const currentYear = getUTCDate(new Date()).getFullYear();
         <img
           v-if="companyStore.current"
           class="h-[32px]"
-          :src="companyStore.current.logo_src"
+          :src="config.public.backendUrl + '/' + companyStore.current.logo_src?.replace('public', 'storage')"
           :alt="companyStore.logoAlt"
         >
       </NuxtLink>

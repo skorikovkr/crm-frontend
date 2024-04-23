@@ -1,9 +1,12 @@
 <script lang="ts" setup>
-  const userStore = useUserStore();
-  await userStore.logout();
-  navigateTo('/login');
+    const userStore = useUserStore();
+    await userStore.logout();
+    navigateTo('/login');
 </script>
 
-<style>
+<template>
+  <div>Logging out...</div>
+</template>
 
+<style>
 </style>

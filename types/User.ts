@@ -1,3 +1,5 @@
+import type { Company } from "./Company"
+
 export interface User {
   id: number,
   name: string,
@@ -14,5 +16,6 @@ export interface User {
   }[],
   roles: {
     id: number
-  }[]
+  }[],
+  organizations: Company[]
 }

@@ -1,15 +1,16 @@
 import type { Company } from '~/types/Company';
 
-export default defineNuxtRouteMiddleware(async (to, from) => {
-  const { data } = await useFetch<Company>(`/api/company/${to.params.id}`);
+export default defineNuxtRouteMiddleware(async (to) => {
+  const { data } = await useLaravelFetch<Company>(`/api/organizations/${to.params.id}`);
+  const companyStore = useCompanyStore();
   
   if (!data) {
+    companyStore.current = null;
     showError({
       statusCode: 404,
       statusMessage: 'Организация не найдена.'
     })
   }
   
-  const companyStore = useCompanyStore();
   companyStore.current = data.value;
 })

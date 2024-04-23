@@ -7,7 +7,7 @@ definePageMeta({
 
 const router = useRouter();
 const route = useRoute();
-const { login } = useUserStore();
+const { login, user } = useUserStore();
 
 const data = reactive({
   email: "",
@@ -28,7 +28,12 @@ const {
     return login(data);
   },
   {
-    onSuccess: () => router.push("/"),
+    onSuccess: () => {
+        if (user?.last_organization_id) {
+            return router.push(`/company/${user.last_organization_id}/public`);
+        }
+        return router.push("/")
+    },
   }
 );
 </script>
@@ -39,7 +44,7 @@ const {
 
     <form @submit.prevent="submit">
       <div>
-        <label for="email">Email</label>
+        <label for="email">Почта</label>
         <div>{{ errors.email?.[0] }}</div>
         <input
           id="email"
@@ -52,8 +57,13 @@ const {
       </div>
 
       <div class="mt-4">
-        <label for="password">Password</label>
-        <div v-for="err in errors.password" :key="err">{{ err }}</div>
+        <label for="password">Пароль</label>
+        <div
+          v-for="err in errors.password"
+          :key="err"
+        >
+          {{ err }}
+        </div>
         <input
           id="password"
           v-model="data.password"
@@ -77,23 +87,16 @@ const {
             name="remember"
             class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
           >
-          <span class="ml-2 text-sm text-gray-600"> Remember me </span>
+          <span class="ml-2 text-sm text-gray-600"> Запомнить меня </span>
         </label>
       </div>
 
       <div class="flex items-center justify-end mt-4">
-        <NuxtLink
-          href="/forgot-password"
-          class="underline text-sm text-gray-600 hover:text-gray-900"
-        >
-          Forgot your password?
-        </NuxtLink>
-
         <input 
           :disabled="inProgress" 
           class="ml-3" 
           type="submit" 
-          value="Login"
+          value="Логин"
         >
       </div>
     </form>

@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import Button from 'primevue/button';
+import type { Company } from '~/types/Company';
 
 definePageMeta({
   layout: 'index-page'
@@ -37,32 +38,73 @@ watch(visible, () => {
   }
 })
 
-const { pending, error, data: organizations } = await useLaravelFetch<any>('/api/organizations');
+const { pending, error, data: organizations } = await useLaravelFetch<Company[]>('/api/organizations');
 
 </script>
 
 <template>
   <div>
-    <Dialog v-model:visible="visible" modal header="Подача заявки на создание CRM" :style="{ width: '25rem' }">
+    <Dialog
+      v-model:visible="visible"
+      modal
+      header="Подача заявки на создание CRM"
+      :style="{ width: '25rem' }"
+    >
       <div class="flex align-items-center gap-3 mb-3">
-        <label for="name" class="font-semibold w-6rem">ФИО</label>
-        <InputText v-model="application.name" id="namr" class="flex-auto" autocomplete="off" />
+        <label
+          for="name"
+          class="font-semibold w-6rem"
+        >ФИО</label>
+        <InputText
+          id="namr"
+          v-model="application.name"
+          class="flex-auto"
+          autocomplete="off"
+        />
       </div>
       <div class="flex align-items-center gap-3 mb-3">
-        <label for="email" class="font-semibold w-6rem">Электронная почта</label>
-        <InputText v-model="application.email" id="email" class="flex-auto" autocomplete="off" />
+        <label
+          for="email"
+          class="font-semibold w-6rem"
+        >Электронная почта</label>
+        <InputText
+          id="email"
+          v-model="application.email"
+          class="flex-auto"
+          autocomplete="off"
+        />
       </div>
       <div class="flex align-items-center gap-3 mb-5">
-        <label for="phone" class="font-semibold w-6rem">Телефон</label>
-        <InputText v-model="application.phone" id="phone" class="flex-auto" autocomplete="off" />
+        <label
+          for="phone"
+          class="font-semibold w-6rem"
+        >Телефон</label>
+        <InputText
+          id="phone"
+          v-model="application.phone"
+          class="flex-auto"
+          autocomplete="off"
+        />
       </div>
-      <div v-show="sendApplicationError" class="flex align-items-center gap-3 mb-5">
-        <p for="phone" class="font-semibold w-6rem text-red-800">
+      <div
+        v-show="sendApplicationError"
+        class="flex align-items-center gap-3 mb-5"
+      >
+        <p
+          for="phone"
+          class="font-semibold w-6rem text-red-800"
+        >
           {{ sendApplicationError }}
         </p>
       </div>
-      <div v-show="sendApplicationSuccess" class="flex align-items-center gap-3 mb-5">
-        <p for="phone" class="font-semibold w-6rem text-green-600">
+      <div
+        v-show="sendApplicationSuccess"
+        class="flex align-items-center gap-3 mb-5"
+      >
+        <p
+          for="phone"
+          class="font-semibold w-6rem text-green-600"
+        >
           {{ sendApplicationSuccess }}
         </p>
       </div>
@@ -98,8 +140,12 @@ const { pending, error, data: organizations } = await useLaravelFetch<any>('/api
         before:z-[-5]
       "
     >
-      <h1 class="text-3xl font-semibold mb-4">О нас</h1>
-      <p class="w-1/2 mb-4">Компания является мебельной фабрикой, которая уже 15 лет производит мебельные детали, столешницы, фасады и другие материалы под заказ. Компания сотрудничает посредством B2B с мебельщиками.</p>
+      <h1 class="text-3xl font-semibold mb-4">
+        О нас
+      </h1>
+      <p class="w-1/2 mb-4">
+        Наша компания является мебельной фабрикой, которая уже 15 лет производит мебельные детали, столешницы, фасады и другие материалы под заказ. Компания сотрудничает посредством B2B с мебельщиками.
+      </p>
       <Button
         label="Оставить заявку" 
         @click="visible = true" 
@@ -110,13 +156,17 @@ const { pending, error, data: organizations } = await useLaravelFetch<any>('/api
       v-if="!pending && !error"
       class="partners"
     >
-      <h3 class="text-3xl font-semibold mb-4">С нами сотрудничают:</h3>
+      <h3 class="text-3xl font-semibold mb-4">
+        С нами сотрудничают:
+      </h3>
       <div
         v-for="org in organizations" 
         :key="org.id" 
         class="organization"
       >
-        <h4>{{ org.name }}</h4>
+        <NuxtLink :to="`/company/${org.id}/public`">
+          <h4>{{ org.name }}</h4>
+        </NuxtLink>
       </div>
     </div>
   </div>

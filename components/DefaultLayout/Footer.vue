@@ -14,21 +14,22 @@ const currentYear = getUTCDate(new Date()).getFullYear();
         <img
           v-if="companyStore.current"
           class="h-[32px]"
-          :src="companyStore.current.logoSrc"
+          :src="companyStore.current.logo_src"
           :alt="companyStore.logoAlt"
         >
       </NuxtLink>
       <DefaultLayoutCTA 
         v-if="companyStore.current"
-        :phone="companyStore.current.phone"
-        :schedule="companyStore.current.schedule"
+        :phone="companyStore.current.phone ?? 'Нет телефона.'"
+        :schedule="companyStore.current.schedule ?? 'Нет расписания.'"
       />
     </div>
     <Divider />
     <div class="footer_socials pb-16">
       <small
         v-if="companyStore.current"
-        class="font-normal text-gray-500">&copy; {{ currentYear }} {{ companyStore.current.name }}, Все права защищены
+        class="font-normal text-gray-500"
+      >&copy; {{ currentYear }} {{ companyStore.current.name }}, Все права защищены
       </small>
     </div>
   </footer>

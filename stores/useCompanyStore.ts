@@ -7,12 +7,13 @@ export const useCompanyStore = defineStore(
     const current = ref<Company | null>(null);
     const userStore = useUserStore();
 
-    const isUserInCompany = computed(() => true);
-    const logoAlt = computed(() => `Логотип компании &quot;${current.value?.name}&quot;`);
+    const isUserInCompany = computed(() => {
+        return !! userStore.user?.organizations.find(o => o.id === current.value?.id);
+    });
+    const logoAlt = computed(() => `Логотип компании ";${current.value?.name}";`);
 
-    async function fetch(id: number) {
-      //current.value = await $laravelFetch<Company>(`/company/${id}`, { method: "get" });
-      current.value = await $fetch<Company | null>(`/api/company/${id}`);
+    async function fetch(id: string|number) { 
+      current.value = await $laravelFetch<Company>(`/api/organizations/${id}`, { method: "get" });
     }
 
     return {

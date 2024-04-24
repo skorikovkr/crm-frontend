@@ -33,7 +33,8 @@ const handleCompanyChange = async (e: {
 
 <template>
   <div
-    class="absolute w-[224px] top-[32px] right-0 shadow-2xl bg-white rounded-2xl"
+    class="w-[224px] top-[32px] right-0 shadow-2xl bg-white rounded-2xl"
+    :style="{ 'position': 'absolute', 'z-index': '1000' }"
     :class="{ hidden: !isVisible }"
   >
     <Dropdown

@@ -7,9 +7,6 @@ definePageMeta({
 });
 
 const visible = ref(false);
-  // TODO: сделать страницу без header тут со списком организаций "которые сотрудничают". они должны быть кликабельны, чтобы crawler мог их индексировать
-  // и еще кнопка "Зайти в личный кабинет, которая будет вести на login"
-  // это было для гостя. для авторизованного будет браться его прошлая организация (можно добавить в userStore) и отображаться публичная страница (редирект на /company/id/public)
 const application = ref({
   name: '',
   phone: '',
@@ -56,8 +53,9 @@ const { pending, error, data: organizations } = await useLaravelFetch<Company[]>
           class="font-semibold w-6rem"
         >ФИО</label>
         <InputText
-          id="namr"
+          id="name"
           v-model="application.name"
+          name="name"
           class="flex-auto"
           autocomplete="off"
         />
@@ -70,6 +68,7 @@ const { pending, error, data: organizations } = await useLaravelFetch<Company[]>
         <InputText
           id="email"
           v-model="application.email"
+          name="email"
           class="flex-auto"
           autocomplete="off"
         />
@@ -82,6 +81,7 @@ const { pending, error, data: organizations } = await useLaravelFetch<Company[]>
         <InputText
           id="phone"
           v-model="application.phone"
+          name="phone"
           class="flex-auto"
           autocomplete="off"
         />
@@ -125,7 +125,7 @@ const { pending, error, data: organizations } = await useLaravelFetch<Company[]>
         mb-4
         overflow-hidden
         block
-        z-10
+        z-[10]
         h-[500px]
         bg-no-repeat
         bg-cover
@@ -140,16 +140,17 @@ const { pending, error, data: organizations } = await useLaravelFetch<Company[]>
         before:z-[-5]
       "
     >
-      <h1 class="text-3xl font-semibold mb-4">
-        О нас
-      </h1>
-      <p class="w-1/2 mb-4">
-        Наша компания является мебельной фабрикой, которая уже 15 лет производит мебельные детали, столешницы, фасады и другие материалы под заказ. Компания сотрудничает посредством B2B с мебельщиками.
-      </p>
-      <Button
-        label="Оставить заявку" 
-        @click="visible = true" 
-      />
+        <h1 class="text-3xl font-semibold mb-4">
+            О нас
+        </h1>
+        <p class="w-1/2 mb-4">
+            Наша компания является мебельной фабрикой, которая уже 15 лет производит мебельные детали, столешницы, фасады и другие материалы под заказ. Компания сотрудничает посредством B2B с мебельщиками.
+        </p>
+        <Button
+            label="Оставить заявку" 
+            :style="{ 'position': 'absolute', 'z-index': '1000' }"
+            @click="visible = true"
+        />
     </div>
 
     <div

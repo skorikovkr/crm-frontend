@@ -140,17 +140,17 @@ const { pending, error, data: organizations } = await useLaravelFetch<Company[]>
         before:z-[-5]
       "
     >
-        <h1 class="text-3xl font-semibold mb-4">
-            О нас
-        </h1>
-        <p class="w-1/2 mb-4">
-            Наша компания является мебельной фабрикой, которая уже 15 лет производит мебельные детали, столешницы, фасады и другие материалы под заказ. Компания сотрудничает посредством B2B с мебельщиками.
-        </p>
-        <Button
-            label="Оставить заявку" 
-            :style="{ 'position': 'absolute', 'z-index': '1000' }"
-            @click="visible = true"
-        />
+      <h1 class="text-3xl font-semibold mb-4">
+        О нас
+      </h1>
+      <p class="w-1/2 mb-4">
+        Наша компания является мебельной фабрикой, которая уже 15 лет производит мебельные детали, столешницы, фасады и другие материалы под заказ. Компания сотрудничает посредством B2B с мебельщиками.
+      </p>
+      <Button
+        label="Оставить заявку" 
+        :style="{ 'position': 'absolute', 'z-index': '1000' }"
+        @click="visible = true"
+      />
     </div>
 
     <div

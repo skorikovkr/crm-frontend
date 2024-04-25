@@ -4,6 +4,7 @@
       id="postOrganization"
       ref="updateOrganization"
       enctype="multipart/form-data"
+      class="flex flex-col gap-2"
       @submit.prevent="handleCreateOrganization"
     >
       <label for="name">Название:</label>
@@ -106,10 +107,18 @@
       >
 
       <Button
+        label="Наценки"
+        @click="visible = true"
+      />
+
+      <Button
         type="submit"
         label="Сохранить"
       />
     </form>
+    <PricingDialog 
+      v-model:visible="visible"
+    />
   </div>
 </template>
 
@@ -118,6 +127,7 @@ import type { MiscEnum } from '~/types/MiscEnum';
 definePageMeta({ middleware: ["load-company"] });
 
 const updateOrganization = ref();
+const visible = ref(false);
 const companyStore = useCompanyStore();
 const miscEnumStore = useMiscEnumsStore();
 const orgType = ref<MiscEnum | null>(miscEnumStore.organizationTypes?.find(t => t.id === companyStore.current?.organization_type_id) ?? null);
@@ -128,10 +138,14 @@ const handleCreateOrganization = async () => {
         if (formData.get("logo") === null) {
             formData.delete("logo");
         }
+        if (! companyStore.current) {
+            throw new Error("Current organization is null.");
+        }
         await $laravelFetch(`/api/organizations/${ companyStore.current?.id}`, {
             method: 'POST',
             body: formData
         });
+        companyStore.fetch(companyStore.current.id);
     } catch (error) {
         console.log(error);
     }

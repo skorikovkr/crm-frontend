@@ -1,4 +1,4 @@
 export default defineNuxtRouteMiddleware(async (to) => {
   const companyStore = useCompanyStore();
-  companyStore.fetch(to.params.id[0]);
+  await companyStore.fetch(to.params.id[0]);
 })

@@ -11,8 +11,7 @@ export default {
 
             // Color
             'bg-surface-0 dark:bg-surface-800',
-            'text-surface-700 dark:text-white/80',
-            'ring-1 ring-surface-200 dark:ring-surface-700'
+            'text-surface-700 dark:text-white/80'
         ]
     },
     wrapper: {

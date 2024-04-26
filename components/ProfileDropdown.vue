@@ -109,7 +109,7 @@ const handleCompanyChange = async (e: {
         <li>
           <NuxtLink
             class="block py-2 pl-4 w-full h-[37px] hover:bg-slate-100"
-            to="orders"
+            to="/"
           >
             Мои заказы
           </NuxtLink>
@@ -117,7 +117,7 @@ const handleCompanyChange = async (e: {
         <li>
           <NuxtLink
             class="block py-2 pl-4 w-full h-[37px] hover:bg-slate-100"
-            to="organizations"
+            to="/companies"
           >
             Мои организации
           </NuxtLink>

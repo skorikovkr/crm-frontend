@@ -4,6 +4,7 @@
       id="postOrganization"
       ref="postOrganization"
       enctype="multipart/form-data"
+      class="flex flex-col gap-2"
       @submit.prevent="handleCreateOrganization"
     >
       <label for="name">Название:</label>

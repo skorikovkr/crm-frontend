@@ -11,7 +11,7 @@
           {{ userStore.user?.name[0] }}
         </div>
       </button>
-      <DefaultLayoutProfileDropdown
+      <ProfileDropdown
         :is-visible="isProfileDropdownVisible"
       />
     </template>

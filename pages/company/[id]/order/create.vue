@@ -28,46 +28,31 @@
         hidden 
         :value="calculator?.id"
       >
-      
-      <label for="address">Клиент:</label>
-      <InputText
-        :value="client?.name"
+
+      <ClientFormInput
+        create-dialog-header="Добавление клиента"
+        label="Клиент:"
+        form-input-name="client_id"
         placeholder="Выберите клиента"
-        class="cursor-pointer"
-        :readonly="true"
-        @click="clientPickerVisible = true"
       />
-      <input
-        type="text"
-        name="client_id"
-        hidden 
-        :value="client?.id"
-      >
+
+      <OrderFormInput
+        create-dialog-header="Добавление заказа"
+        label="Является версией заказа:"
+        form-input-name="version_of"
+        placeholder="Выберите заказ"
+      />
 
       <Button
         type="submit"
         label="Сохранить"
       />
     </form>
-
-    <Dialog
-      v-model:visible="clientPickerVisible"
-      modal
-      header="Выбор клиента"
-    >
-      <ClientPicker
-        :ref="clientPickerRef"
-        v-model:selectedClient="client"
-        :organization-id="companyStore.current?.id"
-      />
-    </Dialog>
   </div>
 </template>
   
 <script lang="ts" setup>
   import type { MiscEnum } from '~/types/MiscEnum';
-  import type { Client } from '~/types/Client';
-  import type ClientPicker from '~/components/ClientPicker.vue';
 
   definePageMeta({ middleware: ["load-company"] });
   
@@ -75,38 +60,20 @@
   const miscStore = useMiscEnumsStore();
   const companyStore = useCompanyStore();
   const calculator = ref<MiscEnum|null>(null);
-  const client = ref<Client|null>(null);
-  const clientPickerVisible = ref(false);
-  const clientPicker = ref<InstanceType<typeof ClientPicker>>();
-  const clientPickerRef = (el: Element | ComponentPublicInstance | null) => {
-    clientPicker.value = (el as InstanceType<typeof ClientPicker>);
-  }
-
-  watch(client, () => {
-    clientPickerVisible.value = false;
-  });
-
-  watch(clientPickerVisible, async () => {
-    if (clientPickerVisible.value) {
-      nextTick(async () => {
-        await clientPicker.value?.refresh();
-      });
-    }
-  })
 
   const handleCreateOrder = async () => {
-    // try {
-    //   const formData = new FormData(createOrderForm.value);
-    //   if (! props.organizationId) {
-    //       throw new Error('Organization Id is required');
-    //   }
+    try {
+      const formData = new FormData(createOrderForm.value);
+      if (! companyStore.current?.id) {
+          throw new Error('Organization Id is required');
+      }
     //   await $laravelFetch(`/api/register-user/organizations/${props.organizationId}`, {
     //     method: 'POST',
     //     body: formData
     //   });
-    // } catch (error) {
-    //   console.log(error);
-    // }
+    } catch (error) {
+      console.log(error);
+    }
   }
 </script>
   

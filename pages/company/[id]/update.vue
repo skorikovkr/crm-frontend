@@ -108,7 +108,12 @@
 
       <Button
         label="Наценки"
-        @click="visible = true"
+        @click="pricingDialogVisible = true"
+      />
+
+      <Button
+        label="Добавить пользователя"
+        @click="addUserDialogVisible = true"
       />
 
       <Button
@@ -117,8 +122,17 @@
       />
     </form>
     <PricingDialog 
-      v-model:visible="visible"
+      v-model:visible="pricingDialogVisible"
     />
+    <Dialog
+      v-model:visible="addUserDialogVisible"
+      modal
+      header="Добавление пользователя"
+    >
+      <AddUserToOrganizationComponent
+        :organization-id="companyStore.current?.id"
+      />
+    </Dialog>
   </div>
 </template>
 
@@ -127,7 +141,8 @@ import type { MiscEnum } from '~/types/MiscEnum';
 definePageMeta({ middleware: ["load-company"] });
 
 const updateOrganization = ref();
-const visible = ref(false);
+const pricingDialogVisible = ref(false);
+const addUserDialogVisible = ref(false);
 const companyStore = useCompanyStore();
 const miscEnumStore = useMiscEnumsStore();
 const orgType = ref<MiscEnum | null>(miscEnumStore.organizationTypes?.find(t => t.id === companyStore.current?.organization_type_id) ?? null);

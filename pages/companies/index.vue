@@ -6,11 +6,11 @@
       <Column field="name" header="Наименование" sortable></Column>
       <Column field="__controls" header="" :showFilterMenu="false">
         <template #body="{ data }">
-            <NuxtLink :to="`/company/${data.id}/update`">
-                <Button label="Редактировать" />
-            </NuxtLink>
+          <NuxtLink :to="`/company/${data.id}/update`">
+            <Button label="Редактировать" />
+          </NuxtLink>
         </template>
-    </Column>
+      </Column>
     </DataTable>
     <NuxtLink to="/company/create" class="mt-4">
       <Button label="Создать новую" />

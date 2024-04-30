@@ -1,7 +1,6 @@
 <template>
   <div>
     <form
-      id="postOrganization"
       ref="postOrganization"
       enctype="multipart/form-data"
       class="flex flex-col gap-2"
@@ -9,67 +8,56 @@
     >
       <label for="name">Название:</label>
       <InputText 
-        id="name"
         name="name" 
       />
       
       <label for="INN">ИНН:</label>
       <InputText 
-        id="INN"
         name="INN" 
       />
       
       <label for="OGRN">ОГРН:</label>
       <InputText 
-        id="OGRN"
         name="OGRN" 
       />
       
       <label for="KPP">КПП:</label>
       <InputText 
-        id="KPP"
         name="KPP" 
       />
       
       <label for="BIK">БИК:</label>
       <InputText 
-        id="BIK"
         name="BIK" 
       />
       
       <label for="bank_name">Банк:</label>
-      <InputText 
-        id="bank_name"
+      <InputText
         name="bank_name" 
       />
       
       <label for="correspondent_account">Корреспондентский счет:</label>
-      <InputText 
-        id="correspondent_account"
+      <InputText
         name="correspondent_account" 
       />
       
       <label for="description">Описание:</label>
-      <InputText 
-        id="description"
+      <InputText
         name="description" 
       />
       
       <label for="address">Адрес:</label>
-      <InputText 
-        id="address"
+      <InputText
         name="address" 
       />
       
       <label for="schedule">Расписание:</label>
-      <InputText 
-        id="schedule"
+      <InputText
         name="schedule" 
       />
       
       <label for="phone">Телефон:</label>
-      <InputText 
-        id="phone"
+      <InputText
         name="phone" 
       />
       
@@ -89,7 +77,6 @@
       >
 
       <input
-        id="logo"
         type="file"
         name="logo"
         accept="image/png, image/jpeg"

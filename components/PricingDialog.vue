@@ -46,6 +46,8 @@
 import { usePassThrough } from 'primevue/passthrough';
 import inputnumber from '~/presets/wind-full/inputnumber';
 
+const visible = defineModel<boolean>('visible');
+
 type PricingNode = {
     id: string|number,
     name: string,
@@ -60,7 +62,6 @@ type TreeNode = {
     children: TreeNode[]
 }
 const nodes = ref<TreeNode[]>([]);
-const visible = defineModel<boolean>('visible');
 const companyStore = useCompanyStore();
 const updatedPricing = ref<{
     category_id: number|string,

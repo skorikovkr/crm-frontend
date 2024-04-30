@@ -56,6 +56,7 @@
       header="Выбор клиента"
     >
       <ClientPicker
+        :ref="clientPickerRef"
         v-model:selectedClient="client"
         :organization-id="companyStore.current?.id"
       />
@@ -66,6 +67,7 @@
 <script lang="ts" setup>
   import type { MiscEnum } from '~/types/MiscEnum';
   import type { Client } from '~/types/Client';
+  import type ClientPicker from '~/components/ClientPicker.vue';
 
   definePageMeta({ middleware: ["load-company"] });
   
@@ -75,10 +77,22 @@
   const calculator = ref<MiscEnum|null>(null);
   const client = ref<Client|null>(null);
   const clientPickerVisible = ref(false);
-  
+  const clientPicker = ref<InstanceType<typeof ClientPicker>>();
+  const clientPickerRef = (el: Element | ComponentPublicInstance | null) => {
+    clientPicker.value = (el as InstanceType<typeof ClientPicker>);
+  }
+
   watch(client, () => {
     clientPickerVisible.value = false;
   });
+
+  watch(clientPickerVisible, async () => {
+    if (clientPickerVisible.value) {
+      nextTick(async () => {
+        await clientPicker.value?.refresh();
+      });
+    }
+  })
 
   const handleCreateOrder = async () => {
     // try {
@@ -94,9 +108,8 @@
     //   console.log(error);
     // }
   }
+</script>
   
-  </script>
-  
-  <style>
-  
-  </style>
+<style>
+
+</style>

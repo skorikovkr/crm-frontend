@@ -1,10 +1,32 @@
 <template>
   <div>
-    <DataTable paginator :rows="5" :rowsPerPageOptions="[5, 10, 20, 50]" :value="organizations" tableStyle="min-width: 50rem;">
-      <Column field="INN" header="ИНН" sortable></Column>
-      <Column field="address" header="Адрес" sortable></Column>
-      <Column field="name" header="Наименование" sortable></Column>
-      <Column field="__controls" header="" :showFilterMenu="false">
+    <DataTable
+      paginator
+      :rows="5"
+      :rows-per-page-options="[5, 10, 20, 50]"
+      :value="organizations"
+      table-style="min-width: 50rem;"
+    >
+      <Column
+        field="INN"
+        header="ИНН"
+        sortable
+      />
+      <Column
+        field="address"
+        header="Адрес"
+        sortable
+      />
+      <Column
+        field="name"
+        header="Наименование"
+        sortable
+      />
+      <Column
+        field="__controls"
+        header=""
+        :show-filter-menu="false"
+      >
         <template #body="{ data }">
           <NuxtLink :to="`/company/${data.id}/update`">
             <Button label="Редактировать" />
@@ -12,7 +34,10 @@
         </template>
       </Column>
     </DataTable>
-    <NuxtLink to="/company/create" class="mt-4">
+    <NuxtLink
+      to="/company/create"
+      class="mt-4"
+    >
       <Button label="Создать новую" />
     </NuxtLink>
   </div>

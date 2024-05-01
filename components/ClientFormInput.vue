@@ -17,6 +17,7 @@
 
     <Dialog
       v-model:visible="clientPickerVisible"
+      :draggable="false"
       modal
       :header="createDialogHeader"
     >
@@ -44,7 +45,7 @@ const companyStore = useCompanyStore();
 const clientPickerRef = (el: Element | ComponentPublicInstance | null) => {
   clientPicker.value = (el as InstanceType<typeof ClientPicker>);
 }
-const client = ref<Client|null>(null);
+const client = defineModel<Client|null>();
 const clientPickerVisible = ref(false);
 const clientPicker = ref<InstanceType<typeof ClientPicker>>();
 

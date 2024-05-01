@@ -21,6 +21,13 @@ const companyStore = useCompanyStore();
             <i class="pi pi-user mr-3" style="color: #708090"></i> Клиенты
           </div>
         </NuxtLink>
+        <NuxtLink
+          :to="`/company/${companyStore.current?.id}/crm/update`"
+        >
+          <div class="hover:bg-gray-100 px-5 py-2">
+            <i class="pi pi-building mr-3" style="color: #708090"></i> Организация
+          </div>
+        </NuxtLink>
       </aside>
       <main class="mx-auto w-full px-4 sm:px-6 p-8 bg-gray-50">
         <slot />

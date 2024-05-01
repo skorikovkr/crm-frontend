@@ -1,17 +1,19 @@
 <template>
-  <div>
+  <div class="grid grid-cols-2">
     <form
       ref="createOrderForm"
       class="flex flex-col gap-2"
       @submit.prevent="handleCreateOrder"
     >
       <label for="name">Наименование:</label>
-      <InputText 
-        name="name" 
+      <InputText
+        v-model="name"
+        name="name"
       />
       
       <label for="address">Адрес:</label>
       <InputText 
+        v-model="address"
         name="address" 
       />
       
@@ -30,6 +32,7 @@
       >
 
       <ClientFormInput
+        v-model="client"
         create-dialog-header="Добавление клиента"
         label="Клиент:"
         form-input-name="client_id"
@@ -37,42 +40,109 @@
       />
 
       <OrderFormInput
+        v-model="order"
         create-dialog-header="Добавление заказа"
         label="Является версией заказа:"
         form-input-name="version_of"
         placeholder="Выберите заказ"
       />
-
-      <Button
-        type="submit"
-        label="Сохранить"
+      
+      <input
+        id="order_file"
+        type="file"
+        name="file" 
+        :multiple="false"
+        @change.capture="handleFileSelect"
+      >
+      
+      <label>Цена:</label>
+      <InputText 
+        :value="totalPrice.toString()"
+        :readonly="true"
       />
+
+      <OrderPositions
+        :positions="orderPositions"
+      />
+
+      <div class="order-create_controls">
+        <Button
+          type="submit"
+          label="Сохранить"
+        />
+      </div>
     </form>
   </div>
 </template>
   
 <script lang="ts" setup>
-  import type { MiscEnum } from '~/types/MiscEnum';
-  
-  const createOrderForm = ref();
-  const miscStore = useMiscEnumsStore();
-  const companyStore = useCompanyStore();
-  const calculator = ref<MiscEnum|null>(null);
+import type { Client } from '~/types/Client';
+import type { MiscEnum } from '~/types/MiscEnum';
+import type { Order } from '~/types/Order';
+import type { OrderPosition } from '~/types/OrderPosition';
 
-  const handleCreateOrder = async () => {
+type OrderedPositions = {
+    total_price: number,
+    positions: OrderPosition[]
+};
+
+const createOrderForm = ref();
+const miscStore = useMiscEnumsStore();
+const companyStore = useCompanyStore();
+const calculator = ref<MiscEnum|null>(null);
+const name = ref('');
+const address = ref('');
+const client = ref<Client|null>(null);
+const order = ref<Order|null>(null);
+const orderPositions = ref<OrderPosition[]>([]);
+const totalPrice = ref(0);
+
+watch(order, async () => {
+  address.value = order.value?.address ?? '';
+  if (order.value?.client_id) {
     try {
-      const formData = new FormData(createOrderForm.value);
-      if (! companyStore.current?.id) {
-          throw new Error('Organization Id is required');
-      }
-    //   await $laravelFetch(`/api/register-user/organizations/${props.organizationId}`, {
-    //     method: 'POST',
-    //     body: formData
-    //   });
+      client.value = await $laravelFetch(`/api/clients/${order.value.client_id}`);
     } catch (error) {
-      console.log(error);
+      console.log('Ошибка получения клиента ' + order.value.client_id);
     }
+  } else {
+    client.value = null;
   }
+  calculator.value = miscStore.calculators?.find(c => c.id === order.value?.calculator_id) ?? null;
+});
+
+const handleFileSelect = (event: any) => {
+  const reader = new FileReader()
+  reader.onload = handleFileLoad;
+  reader.readAsText(event.target.files[0])
+}
+
+const handleFileLoad = async (event: any) => {
+  let pricedPositions = JSON.parse(event.target.result)['positions'];
+  pricedPositions = await $laravelFetch<OrderedPositions>(`/api/organizations/${companyStore.current?.id}/orders/get-priced-positions`, {
+    method: "POST",
+    body: {
+        positions: pricedPositions
+    }
+  });
+  orderPositions.value = pricedPositions['positions'];
+  totalPrice.value = pricedPositions['total_price'];
+}
+
+const handleCreateOrder = async () => {
+  try {
+    const formData = new FormData(createOrderForm.value);
+    if (! companyStore.current?.id) {
+        throw new Error('Organization Id is required');
+    }
+  //   await $laravelFetch(`/api/register-user/organizations/${props.organizationId}`, {
+  //     method: 'POST',
+  //     body: formData
+  //   });
+  } catch (error) {
+    console.log(error);
+  }
+}
 </script>
   
 <style>

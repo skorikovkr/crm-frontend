@@ -40,16 +40,19 @@ defineProps<{
   label: string
 }>();
 
+const emit = defineEmits(['orderChanged']);
+
 const companyStore = useCompanyStore();
 const clientPickerRef = (el: Element | ComponentPublicInstance | null) => {
   orderPicker.value = (el as InstanceType<typeof OrderPicker>);
 }
-const order = ref<Order|null>(null);
+const order = defineModel<Order|null>();
 const orderPickerVisible = ref(false);
 const orderPicker = ref<InstanceType<typeof OrderPicker>>();
 
 watch(order, () => {
   orderPickerVisible.value = false;
+  emit('orderChanged', order);
 });
 
 watch(orderPickerVisible, async () => {

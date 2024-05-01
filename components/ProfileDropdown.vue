@@ -1,13 +1,6 @@
 <script lang="ts" setup>
 import type { Company } from '~/types/Company';
 
-defineProps({
-    isVisible: {
-        type: Boolean,
-        default: false
-    }
-});
-
 const router = useRouter();
 
 const userStore = useUserStore();
@@ -32,11 +25,7 @@ const handleCompanyChange = async (e: {
 </script>
 
 <template>
-  <div
-    class="w-[224px] top-[32px] right-0 shadow-2xl bg-white rounded-2xl"
-    :style="{ 'position': 'absolute', 'z-index': '1000' }"
-    :class="{ hidden: !isVisible }"
-  >
+  <div>
     <Dropdown
       :options="companies ?? []"
       option-label="company"
@@ -96,7 +85,7 @@ const handleCompanyChange = async (e: {
       </template>
     </Dropdown>
 
-    <nav class="profile-nav">
+    <nav class="profile-nav w-[200px]">
       <ul class="border-y-[1px] pb-1 border-surface-200">
         <li>
           <NuxtLink

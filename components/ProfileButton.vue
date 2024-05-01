@@ -11,25 +11,25 @@
           {{ userStore.user?.name[0] }}
         </div>
       </button>
-      <ProfileDropdown
-        :is-visible="isProfileDropdownVisible"
-      />
+      <OverlayPanel
+        ref="op"
+        :pt="{
+          content: 'shadow-2xl bg-white rounded-2xl flex items-center'
+        }"
+      >
+        <ProfileDropdown />
+      </OverlayPanel>
     </template>
   </ClientOnly>
 </template>
 
 <script lang="ts" setup>
 const userStore = useUserStore();
-const { isLoggedIn } = storeToRefs(userStore);
 
-const isProfileDropdownVisible = ref(false);
-const onProfileIconClick = () => {
-  isProfileDropdownVisible.value = !isProfileDropdownVisible.value;
+const op = ref();
+const onProfileIconClick = (event: MouseEvent) => {
+  op.value.toggle(event);
 };
-
-watch(isLoggedIn, () => {
-  isProfileDropdownVisible.value = false;
-})
 
 </script>
 

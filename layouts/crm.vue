@@ -22,7 +22,7 @@ const companyStore = useCompanyStore();
           </div>
         </NuxtLink>
       </aside>
-      <main class="mx-auto w-full px-4 sm:px-6 p-8 bg-gray-100">
+      <main class="mx-auto w-full px-4 sm:px-6 p-8 bg-gray-50">
         <slot />
       </main>
     </div>

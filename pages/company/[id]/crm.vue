@@ -8,7 +8,8 @@
 
 <script lang="ts" setup>
 definePageMeta({
-  layout: false
+  layout: false,
+  middleware: 'load-company'
 })
 </script>
 

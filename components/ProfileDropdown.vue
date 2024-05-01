@@ -26,7 +26,7 @@ const handleCompanyChange = async (e: {
         method: "POST"
     });
     await userStore.refresh();
-    router.push(`/company/${e.value.id}/public`);
+    router.push(`/company/${e.value.id}/crm`);
 }
 
 </script>

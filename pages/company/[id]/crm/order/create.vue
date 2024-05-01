@@ -53,8 +53,6 @@
   
 <script lang="ts" setup>
   import type { MiscEnum } from '~/types/MiscEnum';
-
-  definePageMeta({ middleware: ["load-company"] });
   
   const createOrderForm = ref();
   const miscStore = useMiscEnumsStore();

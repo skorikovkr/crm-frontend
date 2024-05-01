@@ -138,7 +138,6 @@
 
 <script lang="ts" setup>
 import type { MiscEnum } from '~/types/MiscEnum';
-definePageMeta({ middleware: ["load-company"] });
 
 const updateOrganization = ref();
 const pricingDialogVisible = ref(false);

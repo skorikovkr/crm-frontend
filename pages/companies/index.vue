@@ -6,6 +6,7 @@
       :rows-per-page-options="[5, 10, 20, 50]"
       :value="organizations"
       table-style="min-width: 50rem;"
+      class="z-0"
     >
       <Column
         field="INN"
@@ -32,7 +33,7 @@
         :show-filter-menu="false"
       >
         <template #body="{ data }">
-          <NuxtLink :to="`/company/${data.id}/update`">
+          <NuxtLink :to="`/company/${data.id}/crm/update`">
             <Button label="Редактировать" />
           </NuxtLink>
         </template>

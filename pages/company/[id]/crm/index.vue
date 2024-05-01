@@ -1,7 +1,4 @@
 <script lang="ts" setup>
-definePageMeta({ 
-    middleware: ["load-company"]
-});
 
 const companyStore = useCompanyStore();
 

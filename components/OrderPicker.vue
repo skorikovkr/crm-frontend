@@ -61,6 +61,7 @@ defineExpose({
   refresh
 });
 
+await refresh();
 </script>
 
 <style>

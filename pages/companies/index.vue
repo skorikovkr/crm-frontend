@@ -9,21 +9,25 @@
     >
       <Column
         field="INN"
+        class="w-[33%]"
         header="ИНН"
         sortable
       />
       <Column
         field="address"
+        class="w-[33%]"
         header="Адрес"
         sortable
       />
       <Column
         field="name"
+        class="w-[33%]"
         header="Наименование"
         sortable
       />
       <Column
         field="__controls"
+        class="w-[120px]"
         header=""
         :show-filter-menu="false"
       >

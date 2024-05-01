@@ -39,11 +39,11 @@ const config = useRuntimeConfig();
 
     <div class="header_logo absolute left-[50%]">
       <NuxtLink
-        to="/"
+        :to="`/company/${companyStore.current?.id}/public`"
         class="block relative left-[-50%]"
       >
         <img
-          v-if="companyStore.current"
+          v-if="companyStore.current?.logo_src"
           class="h-[32px]"
           :src="config.public.backendUrl + '/' + companyStore.current.logo_src?.replace('public', 'storage')"
           :alt="companyStore.logoAlt"

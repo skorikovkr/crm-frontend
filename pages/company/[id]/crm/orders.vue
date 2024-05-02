@@ -17,6 +17,12 @@ import type { Order } from '~/types/Order';
 
 const companyStore = useCompanyStore();
 const order = ref<Order|null>(null);
+
+watch(order, async () => {
+  if (order.value && companyStore.current) {
+    await navigateTo(`/company/${companyStore.current.id}/crm/order/${order.value.id}`);
+  }
+})
 </script>
 
 <style>

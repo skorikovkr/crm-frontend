@@ -23,6 +23,16 @@
         sortable
       />
       <Column
+        field="order_status_id"
+        header="Статус"
+      >
+        <template #body="slotProps">
+          <StatusTag
+            :order="slotProps.data"
+          />
+        </template>
+      </Column>
+      <Column
         field="__controls"
         header=""
         :show-filter-menu="false"

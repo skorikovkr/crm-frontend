@@ -48,9 +48,8 @@
       />
       
       <input
-        id="order_file"
         type="file"
-        name="file" 
+        name="order_file" 
         :multiple="false"
         @change.capture="handleFileSelect"
       >
@@ -80,11 +79,7 @@ import type { Client } from '~/types/Client';
 import type { MiscEnum } from '~/types/MiscEnum';
 import type { Order } from '~/types/Order';
 import type { OrderPosition } from '~/types/OrderPosition';
-
-type OrderedPositions = {
-    total_price: number,
-    positions: OrderPosition[]
-};
+import type { OrderedPositions } from '~/types/OrderedPositions';
 
 const createOrderForm = ref();
 const miscStore = useMiscEnumsStore();
@@ -135,10 +130,11 @@ const handleCreateOrder = async () => {
     if (! companyStore.current?.id) {
         throw new Error('Organization Id is required');
     }
-  //   await $laravelFetch(`/api/register-user/organizations/${props.organizationId}`, {
-  //     method: 'POST',
-  //     body: formData
-  //   });
+    const order = await $laravelFetch<Order>(`/api/organizations/${companyStore.current?.id}/orders`, {
+      method: 'POST',
+      body: formData
+    });
+    await navigateTo(`/company/${companyStore.current?.id}/crm/order/${order.id}`);
   } catch (error) {
     console.log(error);
   }

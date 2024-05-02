@@ -1,3 +1,5 @@
+import type { OrderedPositions } from "./OrderedPositions";
+
 export interface Order {
     id: string|number,
     name: string,
@@ -13,4 +15,6 @@ export interface Order {
     price: number,
     code_from_factory: string,
     cost_estimate_file_src: string,
+    created_at: string,
+    positions: OrderedPositions
 }

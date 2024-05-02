@@ -36,12 +36,12 @@
           <div class="flex gap-2">
             <NuxtLink :to="`/company/${data.id}/crm/update`">
               <Button>
-                <i class="pi pi-pen-to-square"></i>
+                <i class="pi pi-pen-to-square" />
               </Button>
             </NuxtLink>
             <NuxtLink :to="`/company/${data.id}/crm`">
               <Button>
-                <i class="pi pi-eye"></i>
+                <i class="pi pi-eye" />
               </Button>
             </NuxtLink>
           </div>

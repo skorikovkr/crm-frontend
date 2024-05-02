@@ -1,7 +1,9 @@
 <template>
   <div class="flex flex-col gap-4">
     <div class="order-main-info_row grid grid-cols-2 items-center">
-      <div class="font-medium">Дата создания</div>
+      <div class="font-medium">
+        Дата создания
+      </div>
       <div>{{ new Date(order.created_at).toLocaleDateString() }}</div>
     </div>
 
@@ -9,7 +11,9 @@
       v-if="order.version_of"
       class="order-main-info_row grid grid-cols-2 items-center"
     >
-      <div class="font-medium">Является версией заказа</div>
+      <div class="font-medium">
+        Является версией заказа
+      </div>
       <div>
         <NuxtLink 
           :to="`/company/${companyStore.current?.id}/crm/order/${order.version_of}`"
@@ -21,12 +25,16 @@
     </div>
 
     <div class="order-main-info_row grid grid-cols-2 items-center">
-      <div class="font-medium">Сумма</div>
+      <div class="font-medium">
+        Сумма
+      </div>
       <div>{{ order.positions.total_price }} руб.</div>
     </div>
 
     <div class="order-main-info_row grid grid-cols-2 items-center">
-      <div class="font-medium">Статус</div>
+      <div class="font-medium">
+        Статус
+      </div>
       <div>
         <StatusTag
           :order="order"
@@ -38,7 +46,9 @@
       v-if="!pending && client"
       class="order-main-info_row grid grid-cols-2 items-center"
     >
-      <div class="font-medium">Клиент</div>
+      <div class="font-medium">
+        Клиент
+      </div>
       <div>
         <NuxtLink
           class="underline text-blue-700 visited:text-blue-900"
@@ -52,7 +62,9 @@
       v-if="!pending && client"
       class="order-main-info_row grid grid-cols-2 items-center"
     >
-      <div class="font-medium">Телефон</div>
+      <div class="font-medium">
+        Телефон
+      </div>
       <div>
         <a :href="`tel:${client.phone}`"> {{ client.phone }}</a>
       </div>
@@ -62,7 +74,9 @@
       v-if="!pending && client"
       class="order-main-info_row grid grid-cols-2 items-center"
     >
-      <div class="font-medium">E-mail</div>
+      <div class="font-medium">
+        E-mail
+      </div>
       <div>
         <a :href="`mailto:${client.email}`"> {{ client.email }}</a>
       </div>
@@ -71,7 +85,9 @@
     <div
       class="order-main-info_row grid grid-cols-2 items-center"
     >
-      <div class="font-medium">Тип калькулятора</div>
+      <div class="font-medium">
+        Тип калькулятора
+      </div>
       <div>
         {{ miscStore.calculators?.find(c => c.id == order.calculator_id)?.i18n ?? '-' }}
       </div>

@@ -11,21 +11,30 @@ const companyStore = useCompanyStore();
           :to="`/company/${companyStore.current?.id}/crm/orders`"
         >
           <div class="hover:bg-gray-100 px-5 py-2">
-            <i class="pi pi-truck mr-3" style="color: #708090"></i> Заказы
+            <i
+              class="pi pi-truck mr-3"
+              style="color: #708090"
+            /> Заказы
           </div>
         </NuxtLink>
         <NuxtLink
           :to="`/`"
         >
           <div class="hover:bg-gray-100 px-5 py-2">
-            <i class="pi pi-user mr-3" style="color: #708090"></i> Клиенты
+            <i
+              class="pi pi-user mr-3"
+              style="color: #708090"
+            /> Клиенты
           </div>
         </NuxtLink>
         <NuxtLink
           :to="`/company/${companyStore.current?.id}/crm/update`"
         >
           <div class="hover:bg-gray-100 px-5 py-2">
-            <i class="pi pi-building mr-3" style="color: #708090"></i> Организация
+            <i
+              class="pi pi-building mr-3"
+              style="color: #708090"
+            /> Организация
           </div>
         </NuxtLink>
       </aside>

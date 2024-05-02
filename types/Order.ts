@@ -6,7 +6,7 @@ export interface Order {
     address: string,
     version: number,
     organization_id: string|number,
-    version_of: string|number,
+    version_of: string|number|null|undefined,
     calculator_id: string|number,
     order_status_id: string|number,
     manager_id: string|number,

@@ -42,6 +42,13 @@
       </div>
     </div>
 
+    <div class="order-main-info_row grid grid-cols-2 items-center">
+      <div class="font-medium">
+        Адрес
+      </div>
+      <div>{{ order.address }}</div>
+    </div>
+
     <div
       v-if="!pending && client"
       class="order-main-info_row grid grid-cols-2 items-center"

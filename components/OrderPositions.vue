@@ -16,7 +16,11 @@
         field="price"
         header="Цена"
         sortable
-      />
+      >
+        <template #body="slotProps">
+          {{ formatCurrency(slotProps.data.price) }}
+        </template>
+      </Column>
       <Column
         field="amount"
         header="Кол-во"
@@ -37,6 +41,10 @@ import type { OrderPosition } from '~/types/OrderPosition';
 const props = defineProps<{
   positions: OrderPosition[]
 }>();
+
+const formatCurrency = (value: number) => {
+  return value.toLocaleString('ru-RU', { style: 'currency', currency: 'RUB' });
+};
 
 </script>
 

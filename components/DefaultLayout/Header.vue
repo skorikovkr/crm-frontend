@@ -20,7 +20,7 @@ const config = useRuntimeConfig();
 </script>
 
 <template>
-  <header class="header flex sticky top-0 flex-row justify-between px-[80px] py-[24px] border-b-[1px] border-surface-200 bg-white">
+  <header class="header flex sticky top-0 flex-row justify-between px-[80px] py-[24px] border-b-[1px] border-surface-200 bg-white z-50">
     <nav class="header_navbar flex items-center">
       <ul class="flex flex-row gap-6 my-auto">
         <li

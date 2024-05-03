@@ -8,11 +8,13 @@
         <Button
           v-show="nextButtonLabel"
           severity="danger" 
+          size="small"
           label="Отменить заказ"
           @click="handleCancelButtonClick"
         />
         <Button
           v-show="nextButtonLabel"
+          size="small"
           :label="nextButtonLabel ?? ''"
           @click="handleNextButtonClick"
         />
@@ -37,6 +39,16 @@
       </Panel>
     </div>
     <Panel header="Состав заказа">
+      <h2 class="font-semibold text-xl">
+        Доп. услуги
+      </h2>
+      <OrderExtraWorks
+        v-model="extraWorks"
+        class="mb-2"
+      />
+      <h2 class="font-semibold text-xl">
+        Позиции
+      </h2>
       <OrderPositions
         :positions="order.positions.positions"
       />
@@ -47,12 +59,14 @@
 <script lang="ts" setup>
 import { useRoute } from 'vue-router';
 import type { Client } from '~/types/Client';
+import type { ExtraWork } from '~/types/ExtraWork';
 import type { Order } from '~/types/Order';
 
 const route = useRoute();
 const companyStore = useCompanyStore();
 const miscStore = useMiscEnumsStore();
 const { data: order, pending, refresh } = await useLaravelFetch<Order>(`/api/orders/${route.params.order_id}`);
+const extraWorks = ref<ExtraWork[]>(order.value?.positions.extra_works ?? []);
 
 const nextButtonLabel = computed(() => {
   const statusName = miscStore.orderStatuses?.find(s => s.id == order.value?.order_status_id)?.name;
@@ -84,6 +98,12 @@ const handleNextButtonClick = async () => {
         });
         break;
       case "InProgress":
+        await $laravelFetch(`/api/orders/${order.value.id}/cost-estimate`, {
+            method: 'POST',
+            body: {
+              extra_works: extraWorks.value
+            }
+        });
         break;
       case "WaitForClientPreOrder":
         break;

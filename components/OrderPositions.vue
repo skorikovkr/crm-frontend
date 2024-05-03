@@ -37,14 +37,11 @@
 
 <script lang="ts" setup>
 import type { OrderPosition } from '~/types/OrderPosition';
+import { formatCurrency } from '~/utils/formatCurrency.ts';
 
 const props = defineProps<{
   positions: OrderPosition[]
 }>();
-
-const formatCurrency = (value: number) => {
-  return value.toLocaleString('ru-RU', { style: 'currency', currency: 'RUB' });
-};
 
 </script>
 

@@ -37,10 +37,10 @@ const config = useRuntimeConfig();
       </ul>
     </nav>
 
-    <div class="header_logo absolute left-[50%]">
+    <div class="header_logo">
       <NuxtLink
         :to="`/company/${companyStore.current?.id}/public`"
-        class="block relative left-[-50%]"
+        class="block"
       >
         <img
           v-if="companyStore.current?.logo_src"

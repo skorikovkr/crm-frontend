@@ -3,7 +3,7 @@ export default {
         class: 'relative'
     },
     menu: {
-        class: 'p-0 m-0 list-none flex justify-center'
+        class: 'p-0 m-0 list-none flex justify-between'
     },
     menuitem: {
         class: [

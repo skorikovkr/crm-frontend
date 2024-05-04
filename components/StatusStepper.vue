@@ -15,7 +15,7 @@
       >
         <i
           v-show="getIndex(item) <= stepperIndex"
-          class="pi pi-check mr-1"
+          class="pi pi-check mr-1 size-4 self-center text-white bg-slate-400 rounded-[50%]"
         /> {{ miscStore.orderStatuses?.find(s => s.name == item)?.i18n }}
       </span>
     </template>

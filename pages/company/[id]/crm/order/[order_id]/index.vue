@@ -32,21 +32,24 @@
       </Card>
     </div>
     <div
-      class="grid grid-cols-2 mb-6"
+      class="grid grid-cols-2 mb-6 gap-4"
     >
       <Panel header="Информация по заказу">
         <OrderMainInfo :order="order" />
       </Panel>
+      <Panel header="Документы" class="bg-white">
+        <OrderDocuments :order="order" />
+      </Panel>
     </div>
     <Panel header="Состав заказа">
-      <h2 class="font-semibold text-xl">
+      <h2 class="font-semibold text-xl mb-2">
         Доп. услуги
       </h2>
       <OrderExtraWorks
         v-model="extraWorks"
         class="mb-2"
       />
-      <h2 class="font-semibold text-xl">
+      <h2 class="font-semibold text-xl mb-2">
         Позиции
       </h2>
       <OrderPositions

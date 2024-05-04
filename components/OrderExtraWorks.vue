@@ -1,8 +1,12 @@
 <template>
   <div>
-    <InputText v-model="name" />
-    <InputNumber v-model="price" />
-    <Button label="Добавить" @click="handleAddExtraWorkClick" />
+    <div class="flex gap-2 pb-2">
+      <label class="self-center">Наименование</label>
+      <InputText v-model="name" />
+      <label class="self-center">Сумма</label>
+      <InputNumber v-model="price" />
+      <Button label="Добавить" class="ml-6" @click="handleAddExtraWorkClick" />
+    </div>
     <DataTable
       :value="extraWorks"
     >

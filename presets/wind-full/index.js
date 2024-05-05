@@ -70,6 +70,7 @@ import terminal from './terminal';
 import message from './message';
 import inlinemessage from './inlinemessage';
 import toast from './toast';
+import galleria from './galleria';
 
 export default {
     global,
@@ -145,5 +146,6 @@ export default {
     terminal,
     message,
     inlinemessage,
-    toast
+    toast,
+    galleria
 }

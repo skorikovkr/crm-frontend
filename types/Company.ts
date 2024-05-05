@@ -1,3 +1,5 @@
+import type { PortfolioItem } from "./PortfolioItem";
+
 export interface Company {
   id: number;
   name: string;
@@ -15,5 +17,6 @@ export interface Company {
   phone?: string,
   organization_type_id?: number,
   created_at?: Date,
-  updated_at?: Date
+  updated_at?: Date,
+  portfolio: PortfolioItem[]
 }

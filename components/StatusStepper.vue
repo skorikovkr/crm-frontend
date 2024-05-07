@@ -4,9 +4,9 @@
     :readonly="true"
   >
     <template #item="{ item }">
-      <span 
+      <div 
         :class="[
-          'inline-flex align-items-center justify-content-center align-items-center border-circle border-primary border-1 h-3rem w-3rem z-1 cursor-pointer', 
+          'flex flex-col m-auto content-center align-items-center justify-content-center align-items-center text-center border-circle border-primary border-1 h-3rem w-3rem z-1 cursor-pointer text-sm font-medium', 
           { 
             'bg-primary': (getIndex(item) <= stepperIndex), 
             'surface-overlay text-primary': (getIndex(item) > stepperIndex) 
@@ -15,9 +15,15 @@
       >
         <i
           v-show="getIndex(item) <= stepperIndex"
-          class="pi pi-check mr-1 size-4 self-center text-white bg-slate-400 rounded-[50%]"
-        /> {{ miscStore.orderStatuses?.find(s => s.name == item)?.i18n }}
-      </span>
+          class="pi block  pi-check text-sm mr-1 p-[0.1rem] size-4 self-center align-middle text-white bg-slate-400 rounded-[50%]"
+          :style="{fontSize: '0.75rem'}"
+        />
+        <div 
+          class="self-center max-w-20"
+        >
+          {{ miscStore.orderStatuses?.find(s => s.name == item)?.i18n }}
+        </div>
+      </div>
     </template>
   </Steps>
 </template>
@@ -32,6 +38,10 @@ const items = ref([
    "Saved",
    "InProgress",
    "WaitForClientPreOrder",
+   "SendOrderToFF",
+   "WaitPreOrderFF",
+   "WaitForDetailsDeliveryFF",
+   "WaitForPayOtherHalfForFF",
    "Production",
    "WaitForClientPayOtherHalf",
    "ReadyForShipment",
@@ -39,24 +49,7 @@ const items = ref([
 ]);
 
 const getIndex = (status?: string) => {
-  switch (status) {
-    case "Saved":
-        return 0;
-    case "InProgress":
-        return 1;
-    case "WaitForClientPreOrder":
-        return 2;
-    case "Production":
-        return 3;
-    case "WaitForClientPayOtherHalf":
-        return 4;
-    case "ReadyForShipment":
-        return 5;
-    case "Completed":
-        return 6;
-    default:
-        return -1;
-  }
+  return items.value.findIndex(i => i == status);
 }
 
 const stepperIndex = computed(() => getIndex(props.activeStatus));

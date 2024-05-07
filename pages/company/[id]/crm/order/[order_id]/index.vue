@@ -21,7 +21,8 @@
       </div>
       <Card
         :pt="{
-          content: 'py-0 px-6'
+          content: 'py-0 px-6',
+          body: 'py-2'
         }"
       >
         <template #content>
@@ -109,6 +110,9 @@ const handleNextButtonClick = async () => {
         });
         break;
       case "WaitForClientPreOrder":
+        await $laravelFetch(`/api/orders/${order.value.id}/preorder-received`, {
+            method: 'POST'
+        });
         break;
       case "Production":
         break;

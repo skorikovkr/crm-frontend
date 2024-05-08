@@ -28,7 +28,14 @@
       <div class="font-medium">
         Сумма
       </div>
-      <div>{{ order.positions.total_price }} руб.</div>
+      <div>{{ formatCurrency(order.positions.total_price) }}</div>
+    </div>
+
+    <div class="order-main-info_row grid grid-cols-2 items-center">
+      <div class="font-medium">
+        Сумма (МФ)
+      </div>
+      <div>{{ order.ffprice ? formatCurrency(order.ffprice) : '-' }}</div>
     </div>
 
     <div class="order-main-info_row grid grid-cols-2 items-center">

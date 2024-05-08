@@ -8,18 +8,24 @@
         :class="[
           'flex flex-col m-auto content-center align-items-center justify-content-center align-items-center text-center border-circle border-primary border-1 h-3rem w-3rem z-1 cursor-pointer text-sm font-medium', 
           { 
-            'bg-primary': (getIndex(item) <= stepperIndex), 
-            'surface-overlay text-primary': (getIndex(item) > stepperIndex) 
+            'text-gray-400': (getIndex(item) < stepperIndex),
           }
         ]"
       >
         <i
-          v-show="getIndex(item) <= stepperIndex"
-          class="pi block  pi-check text-sm mr-1 p-[0.1rem] size-4 self-center align-middle text-white bg-slate-400 rounded-[50%]"
+          v-show="getIndex(item) < stepperIndex"
+          class="pi block  pi-check text-sm mr-1 p-[0.1rem] size-4 self-center align-middle text-white bg-gray-300 rounded-[50%]"
           :style="{fontSize: '0.75rem'}"
         />
         <div 
-          class="self-center max-w-20"
+          class="self-center max-w-22"
+          :class="[
+            'flex flex-col m-auto content-center align-items-center justify-content-center align-items-center text-center border-circle border-primary border-1 h-3rem w-3rem z-1 cursor-pointer text-sm ', 
+            { 
+              'font-bold': (getIndex(item) == stepperIndex),
+              'font-medium': (getIndex(item) != stepperIndex),
+            }
+          ]"
         >
           {{ miscStore.orderStatuses?.find(s => s.name == item)?.i18n }}
         </div>
@@ -34,6 +40,7 @@ const props = defineProps<{
 }>();
 
 const miscStore = useMiscEnumsStore();
+// items must be in correct order
 const items = ref([
    "Saved",
    "InProgress",

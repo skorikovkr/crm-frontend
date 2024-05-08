@@ -16,5 +16,6 @@ export interface Order {
     code_from_factory: string,
     cost_estimate_file_src: string,
     created_at: string,
+    ffprice?: number,
     positions: OrderedPositions
 }

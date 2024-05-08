@@ -6,17 +6,24 @@
           Заказ {{ order.name }}
         </h1>
         <Button
-          v-show="nextButtonLabel"
+          v-show="order.order_status_id != miscStore.orderStatuses?.find(s => s.name == 'Canceled')?.id"
           severity="danger" 
           size="small"
           label="Отменить заказ"
           @click="handleCancelButtonClick"
         />
         <Button
-          v-show="nextButtonLabel"
+          v-show="order.order_status_id != miscStore.orderStatuses?.find(s => s.name == 'Canceled')?.id"
           size="small"
+          :icon="isStatusWaitActionFromFF ? 'pi pi-clock' : 'pi pi-angle-double-right'"
+          :severity="isStatusWaitActionFromFF ? 'secondary' : 'success'"
           :label="nextButtonLabel ?? ''"
-          @click="handleNextButtonClick"
+          :disabled="isStatusWaitActionFromFF"
+          @click="() => {
+            if (! isStatusWaitActionFromFF) {
+              handleNextButtonClick()
+            }
+          }"
         />
       </div>
       <Card
@@ -81,8 +88,16 @@ const nextButtonLabel = computed(() => {
         return "Смета согласована";
     case "WaitForClientPreOrder":
         return "Предоплата получена";
+    case "SendOrderToFF":
+        return "Согласование заказа с МФ...";
+    case "WaitPreOrderFF":
+        return "МФ ожидает предоплату...";
+    case "WaitForDetailsDeliveryFF":
+        return "МФ выполняет заказ...";
+    case "WaitForPayOtherHalfForFF":
+        return "МФ ожидает финальную оплату...";
     case "Production":
-        return "Ожидание полной оплаты";
+        return "Производство завершено";
     case "WaitForClientPayOtherHalf":
         return "Оплата получена";
     case "ReadyForShipment":
@@ -90,6 +105,33 @@ const nextButtonLabel = computed(() => {
   }
   return null;
 })
+
+const isStatusWaitActionFromFF = computed(() => {
+  const statusName = miscStore.orderStatuses?.find(s => s.id == order.value?.order_status_id)?.name;
+  switch (statusName) {
+    case "Saved":
+        return false;
+    case "InProgress":
+        return false;
+    case "WaitForClientPreOrder":
+        return false;
+    case "SendOrderToFF":
+        return true;
+    case "WaitPreOrderFF":
+        return true;
+    case "WaitForDetailsDeliveryFF":
+        return true;
+    case "WaitForPayOtherHalfForFF":
+        return true;
+    case "Production":
+        return false;
+    case "WaitForClientPayOtherHalf":
+        return false;
+    case "ReadyForShipment":
+        return false;
+  }
+  return false;   
+});
 
 const handleNextButtonClick = async () => {
   if (!order.value) return;

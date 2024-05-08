@@ -8,8 +8,7 @@
       @submit.prevent="handleUpdateOrganizationPublicInfo"
     >
       <label for="description">Описание организации:</label>
-      <InputText
-        id="description"
+      <Textarea
         name="description"
         :value="companyStore.current?.description"
       />

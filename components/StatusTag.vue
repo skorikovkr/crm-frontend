@@ -21,15 +21,8 @@ const getSeverity = (order: Order) => {
       return 'success';
     case 'Canceled':
       return 'danger';
-    case 'InProgress':
-    case 'WaitForClientPreOrder':
-    case 'Production':
-    case 'WaitForClientPayOtherHalf':
-    case 'ReadyForShipment':
-    case 'Saved':
-      return 'info';
     default:
-      return undefined;
+      return 'info';
   }
 };
 </script>

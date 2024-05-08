@@ -6,14 +6,14 @@
           Заказ {{ order.name }}
         </h1>
         <Button
-          v-show="order.order_status_id != miscStore.orderStatuses?.find(s => s.name == 'Canceled')?.id"
+          v-show="!isOrderCanceled && !isOrderCompleted"
           severity="danger" 
           size="small"
           label="Отменить заказ"
           @click="handleCancelButtonClick"
         />
         <Button
-          v-show="order.order_status_id != miscStore.orderStatuses?.find(s => s.name == 'Canceled')?.id"
+          v-show="!isOrderCanceled && !isOrderCompleted"
           size="small"
           :icon="isStatusWaitActionFromFF ? 'pi pi-clock' : 'pi pi-angle-double-right'"
           :severity="isStatusWaitActionFromFF ? 'secondary' : 'success'"
@@ -69,7 +69,6 @@
 
 <script lang="ts" setup>
 import { useRoute } from 'vue-router';
-import type { Client } from '~/types/Client';
 import type { ExtraWork } from '~/types/ExtraWork';
 import type { Order } from '~/types/Order';
 
@@ -78,6 +77,9 @@ const companyStore = useCompanyStore();
 const miscStore = useMiscEnumsStore();
 const { data: order, pending, refresh } = await useLaravelFetch<Order>(`/api/orders/${route.params.order_id}`);
 const extraWorks = ref<ExtraWork[]>(order.value?.positions.extra_works ?? []);
+
+const isOrderCompleted = computed(() => order.value?.order_status_id == miscStore.orderStatuses?.find(s => s.name == 'Completed')?.id);
+const isOrderCanceled = computed(() => order.value?.order_status_id == miscStore.orderStatuses?.find(s => s.name == 'Canceled')?.id);
 
 const nextButtonLabel = computed(() => {
   const statusName = miscStore.orderStatuses?.find(s => s.id == order.value?.order_status_id)?.name;
@@ -157,10 +159,19 @@ const handleNextButtonClick = async () => {
         });
         break;
       case "Production":
+        await $laravelFetch(`/api/orders/${order.value.id}/production-ended`, {
+            method: 'POST'
+        });
         break;
       case "WaitForClientPayOtherHalf":
+        await $laravelFetch(`/api/orders/${order.value.id}/received-final-payment`, {
+            method: 'POST'
+        });
         break;
       case "ReadyForShipment":
+        await $laravelFetch(`/api/orders/${order.value.id}/shipment-finished`, {
+            method: 'POST'
+        });
         break;
     }
   } catch (error) {

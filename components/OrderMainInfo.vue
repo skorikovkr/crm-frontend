@@ -28,14 +28,17 @@
       <div class="font-medium">
         Сумма
       </div>
-      <div>{{ formatCurrency(order.positions.total_price) }}</div>
+      <span>{{ formatCurrency(order.positions.total_price) }} <i class="italic text-gray-400">(получено: {{ formatCurrency(clientPriceRemain) }})</i></span>
     </div>
 
     <div class="order-main-info_row grid grid-cols-2 items-center">
       <div class="font-medium">
         Сумма (МФ)
       </div>
-      <div>{{ order.ffprice ? formatCurrency(order.ffprice) : '-' }}</div>
+      <div>
+        <span v-if="order.ffprice">{{ formatCurrency(order.ffprice) }} <i class="italic text-gray-400">(осталось: {{ formatCurrency(ffpriceRemain) }})</i></span>
+        <span v-else> - </span>
+      </div>
     </div>
 
     <div class="order-main-info_row grid grid-cols-2 items-center">
@@ -120,6 +123,57 @@ const props = defineProps<{
 const companyStore = useCompanyStore();
 const miscStore = useMiscEnumsStore();
 const { data: client, pending } = await useLaravelFetch<Client>(`/api/clients/${props.order.client_id}`);
+
+const statusName = (statusId :number|string) => {
+  return miscStore.orderStatuses?.find(s => s.id == statusId)?.name;
+};
+
+const statusNumber = computed(() => {
+  const name = statusName(props.order.order_status_id);
+  switch (name) {
+    case "Saved":
+        return 1;
+    case "InProgress":
+        return 2;
+    case "WaitForClientPreOrder":
+        return 3;
+    case "SendOrderToFF":
+        return 4;
+    case "WaitPreOrderFF":
+        return 5;
+    case "WaitForDetailsDeliveryFF":
+        return 6;
+    case "WaitForPayOtherHalfForFF":
+        return 7;
+    case "Production":
+        return 8;
+    case "WaitForClientPayOtherHalf":
+        return 9;
+    case "ReadyForShipment":
+        return 10;
+    case "Completed":
+        return 11;
+  }
+  return -1;   
+});
+
+const ffpriceRemain = computed(() => {
+  let ratio = 1;
+  if (statusNumber.value > 5)
+    ratio -= 0.5;
+  if (statusNumber.value > 7)
+    ratio -= 0.5;
+  return (props.order.ffprice ?? 0) * ratio;
+});
+
+const clientPriceRemain = computed(() => {
+  let ratio = 0;
+  if (statusNumber.value > 3)
+    ratio += 0.5;
+  if (statusNumber.value > 9)
+    ratio += 0.5;
+  return (props.order.ffprice ?? 0) * ratio;
+});
 </script>
 
 <style>

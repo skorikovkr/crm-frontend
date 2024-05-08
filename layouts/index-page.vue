@@ -1,6 +1,6 @@
 <template>
   <div class="layout-container relative min-h-[100vh] flex flex-col">
-    <header class="header flex sticky top-0 flex-row-reverse justify-between px-[80px] py-[24px] border-b-[1px] border-surface-200 z-[1000]">
+    <header class="header flex sticky top-0 flex-row-reverse justify-between px-[80px] py-[24px] border-b-[1px] border-surface-200 bg-white z-[1000]">
       <div class="header_logo absolute left-[50%] top-[30%]">
         <NuxtLink
           to="/"

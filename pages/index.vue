@@ -6,6 +6,7 @@ definePageMeta({
   layout: 'index-page'
 });
 
+const config = useRuntimeConfig();
 const visible = ref(false);
 const application = ref({
   name: '',
@@ -161,12 +162,35 @@ const { pending, error, data: organizations } = await useLaravelFetch<Company[]>
         С нами сотрудничают:
       </h3>
       <div
-        v-for="org in organizations" 
-        :key="org.id" 
-        class="organization"
+        class="organizations flex justify-between flex-wrap pb-10"
       >
-        <NuxtLink :to="`/company/${org.id}/public`">
-          <h4>{{ org.name }}</h4>
+        <NuxtLink
+          v-for="org in organizations" 
+          :key="org.id"
+          :to="`/company/${org.id}/public`"
+          :style="{
+            width: '250px',
+          }"
+        >
+          <Card 
+            :style="{
+              overflow: 'hidden',
+              minHeight: '300px'
+            }"
+          >
+            <template #header>
+              <img
+                :src="org.logo_src ? (config.public.backendUrl + '/' + org.logo_src.replace('public', 'storage')) : '/no-image.jpg'"
+                :style="{
+                  height: '250px',
+                  objectFit: 'contain'
+                }"
+              >
+            </template>
+            <template #title>
+              <h4>{{ org.name }}</h4>
+            </template>
+          </Card>
         </NuxtLink>
       </div>
     </div>

@@ -23,7 +23,7 @@ const currentYear = getUTCDate(new Date()).getFullYear();
       <DefaultLayoutCTA 
         v-if="companyStore.current"
         :phone="companyStore.current.phone ?? 'Нет телефона.'"
-        :schedule="companyStore.current.schedule ?? 'Нет расписания.'"
+        :schedule="companyStore.current.schedule ?? ''"
       />
     </div>
     <Divider />

@@ -21,6 +21,8 @@ const getSeverity = (order: Order) => {
       return 'success';
     case 'Canceled':
       return 'danger';
+    case 'Failed':
+      return 'danger';
     default:
       return 'info';
   }

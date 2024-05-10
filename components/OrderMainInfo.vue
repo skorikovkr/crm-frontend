@@ -172,7 +172,7 @@ const clientPriceRemain = computed(() => {
     ratio += 0.5;
   if (statusNumber.value > 9)
     ratio += 0.5;
-  return (props.order.ffprice ?? 0) * ratio;
+  return (props.order.positions.total_price ?? 0) * ratio;
 });
 </script>
 

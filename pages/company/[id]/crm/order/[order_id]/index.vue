@@ -6,14 +6,14 @@
           Заказ {{ order.name }}
         </h1>
         <Button
-          v-show="!isOrderCanceled && !isOrderCompleted"
+          v-show="!isOrderCanceled && !isOrderCompleted && !isOrderFailed"
           severity="danger" 
           size="small"
           label="Отменить заказ"
           @click="handleCancelButtonClick"
         />
         <Button
-          v-show="!isOrderCanceled && !isOrderCompleted"
+          v-show="!isOrderCanceled && !isOrderCompleted && !isOrderFailed"
           size="small"
           :icon="isStatusWaitActionFromFF ? 'pi pi-clock' : 'pi pi-angle-double-right'"
           :severity="isStatusWaitActionFromFF ? 'secondary' : 'success'"
@@ -24,6 +24,14 @@
               handleNextButtonClick()
             }
           }"
+        />
+        <Button
+          v-show="!isOrderCanceled && !isOrderCompleted && !isOrderFailed"
+          severity="danger" 
+          size="small"
+          class="ml-auto"
+          label="Заказ провален"
+          @click="handleFailButtonClick"
         />
       </div>
       <Card
@@ -80,6 +88,7 @@ const extraWorks = ref<ExtraWork[]>(order.value?.positions.extra_works ?? []);
 
 const isOrderCompleted = computed(() => order.value?.order_status_id == miscStore.orderStatuses?.find(s => s.name == 'Completed')?.id);
 const isOrderCanceled = computed(() => order.value?.order_status_id == miscStore.orderStatuses?.find(s => s.name == 'Canceled')?.id);
+const isOrderFailed = computed(() => order.value?.order_status_id == miscStore.orderStatuses?.find(s => s.name == 'Failed')?.id);
 
 const nextButtonLabel = computed(() => {
   const statusName = miscStore.orderStatuses?.find(s => s.id == order.value?.order_status_id)?.name;
@@ -184,6 +193,18 @@ const handleCancelButtonClick = async () => {
     if (!order.value) return;
     try {
       await $laravelFetch(`/api/orders/${order.value.id}/cancel`, {
+        method: 'POST'
+      });
+    } catch (error) {
+      console.log(error);
+    }
+    await refresh();
+}
+
+const handleFailButtonClick = async () => {
+    if (!order.value) return;
+    try {
+      await $laravelFetch(`/api/orders/${order.value.id}/fail`, {
         method: 'POST'
       });
     } catch (error) {

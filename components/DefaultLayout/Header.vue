@@ -1,22 +1,19 @@
 <script setup lang="ts">
 
+
+const companyStore = useCompanyStore();
+const config = useRuntimeConfig();
+
 const navbarItems = [
   {
     text: "О компании",
-    url: "#"
+    url: `/company/${companyStore.current?.id}/public`
   },
   {
     text: "Калькуляторы",
     url: "#"
   },
-  {
-    text: "Портфолио",
-    url: "#"
-  },
 ];
-
-const companyStore = useCompanyStore();
-const config = useRuntimeConfig();
 </script>
 
 <template>
@@ -55,7 +52,7 @@ const config = useRuntimeConfig();
       <DefaultLayoutCTA
         v-if="companyStore.current"
         :phone="companyStore.current.phone ?? 'Нет телефона.'"
-        :schedule="companyStore.current.schedule ?? 'Нет расписания'"
+        :schedule="companyStore.current.schedule ?? ''"
         class="pr-4"
       />
       <ProfileButton />

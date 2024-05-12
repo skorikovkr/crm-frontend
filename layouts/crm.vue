@@ -1,5 +1,19 @@
 <script setup lang="ts">
 const companyStore = useCompanyStore();
+
+const items = ref([
+    {
+        label: 'Отчеты',
+        icon: 'pi pi-chart-bar',
+        items: [
+            {
+                label: 'Воронка продаж',
+                icon: 'pi pi-chart-line',
+                url: `/company/${companyStore.current?.id}/crm/reports/purchase-funnel`
+            },
+        ]
+    }
+]);
 </script>
 
 <template>
@@ -37,6 +51,28 @@ const companyStore = useCompanyStore();
             /> Организация
           </div>
         </NuxtLink>
+        <PanelMenu
+          :model="items"
+          class="w-full"
+          :pt="{
+            headerContent: 'text-primary',
+            menuContent: 'py-1'
+          }"
+        >
+          <template #item="{ item }">
+            <NuxtLink
+              :to="item.url"
+            >
+              <div class="hover:bg-gray-100 px-5 py-2">
+                <i
+                  class="mr-3"
+                  :class="['text-primary', item.icon]"
+                  style="color: #708090"
+                /> {{ item.label }}
+              </div>
+            </NuxtLink>
+          </template>
+        </PanelMenu>
       </aside>
       <main class="mx-auto w-full px-4 sm:px-6 p-8 bg-gray-50">
         <slot />

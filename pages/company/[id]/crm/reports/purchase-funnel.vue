@@ -2,13 +2,25 @@
 <template>
   <div>
     <h1 class="mb-4 font-medium text-2xl">Воронка продаж</h1>
+    <p>Параметры:</p>
+    <div class="flex gap-2 mb-2 items-center">
+      <label>От</label>
+      <Calendar v-model="startDate" dateFormat="dd.mm.yy" />
+      <label>До</label>
+      <Calendar v-model="endDate" dateFormat="dd.mm.yy" />
+      <Button label="Получить отчет" @click="handleGetReportClick" />
+    </div>
     <Chart
-      type="bar" 
+      ref="bar"
+      type="bar"
       :data="chartData" 
       :options="chartOptions"
     />
-    <p class="mt-4 font-medium text-2xl">
+    <p class="mt-4 font-medium text-xl">
       Сумма: {{ formatCurrency(income) }}
+    </p>
+    <p class="mt-4 font-medium text-xl">
+      Конверсия: {{ data?.conversion * 100 }}%
     </p>
   </div>
 </template>
@@ -22,27 +34,32 @@ onMounted(async () => {
     chartOptions.value = setChartOptions();
 });
 
+const bar = ref();
 const chartData = ref();
 const chartOptions = ref();
 const income = ref(0);
+const data = ref();
 const miscStore = useMiscEnumsStore();
 const organizationStore = useCompanyStore();
+const startDate = ref(new Date(2000, 0, 1));
+const endDate = ref(new Date());
 
 const setChartData = async () => {
     if (!organizationStore.current) return;
-    const data = await $laravelFetch(`/api/organizations/${organizationStore.current.id}/reports/purchase-funnel`, {
+    const response = await $laravelFetch(`/api/organizations/${organizationStore.current.id}/reports/purchase-funnel`, {
         query: {
-            start_date: new Date(2000, 0, 1).toISOString(),
-            end_date: new Date().toISOString()
+            start_date: startDate.value.toISOString(),
+            end_date: endDate.value.toISOString()
         }
     });
-    income.value = new Number(data.income);
+    data.value = response;
+    income.value = new Number(response.income);
     return {
-        labels: [...data.funnel.map(s => miscStore.orderStatuses.find(s2 => s.name == s2.name).i18n), 'Проиграно'],
+        labels: [...response.funnel.map(s => miscStore.orderStatuses.find(s2 => s.name == s2.name).i18n), 'Проиграно'],
         datasets: [
             {
-                data: [...data.funnel.map(s => s.count), data.failed_orders.count],
-                backgroundColor: [...data.funnel, { name: 'Failed' }].map(s => {
+                data: [...response.funnel.map(s => s.count), response.failed_orders.count],
+                backgroundColor: [...response.funnel, { name: 'Failed' }].map(s => {
                     if (s.name == "Completed") return 'rgba(0, 255, 0, 0.2)';
                     if (s.name == "Failed") return 'rgba(255, 0, 0, 0.2)';
                     return "rgba(0, 0, 255, 0.2)";
@@ -52,6 +69,12 @@ const setChartData = async () => {
         ]
     };
 };
+
+const handleGetReportClick = async () => {
+    chartData.value = await setChartData();
+    bar.value.getChart().refresh();
+}
+
 const setChartOptions = () => {
     const documentStyle = getComputedStyle(document.documentElement);
     const textColor = documentStyle.getPropertyValue('--text-color');

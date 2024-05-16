@@ -20,13 +20,18 @@
         name="phone" 
       />
       
+      <label for="job">Должность:</label>
+      <InputText 
+        name="job" 
+      />
+      
+      <label for="furniture_maker_role_id">Роль:</label>
       <Dropdown
         v-model="role"
         :options="miscStore.furnitureMakerRoles?.filter(r => r.name !== 'Owner') ?? undefined" 
         option-label="i18n"
         label
-        placeholder="Роль:" 
-        class="w-full md:w-14rem"
+        class="w-full"
       />
       <input
         type="text"
@@ -35,10 +40,12 @@
         :value="role?.id"
       >
 
-      <Button
-        type="submit"
-        label="Сохранить"
-      />
+      <div>
+        <Button
+          type="submit"
+          label="Сохранить"
+        />
+      </div>
     </form>
   </div>
 </template>

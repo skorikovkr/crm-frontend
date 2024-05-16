@@ -33,7 +33,7 @@
         </div>
       </template>
     </Tree>
-    <div class="flex flex-wrap gap-2 mb-4">
+    <div class="flex flex-wrap justify-end gap-2 mb-4">
       <Button
         type="button"
         label="Сохранить"

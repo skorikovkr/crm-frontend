@@ -122,6 +122,7 @@
           <PricingEditor />
         </Panel>
         <Panel toggleable collapsed header="Сотрудники">
+          <EmployeeEditor />
           <Button
             label="Добавить сотрудника"
             @click="addUserDialogVisible = true"

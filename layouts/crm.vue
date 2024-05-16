@@ -18,6 +18,7 @@ const items = ref([
 
 <template>
   <div class="layout-container relative min-h-[100vh] flex flex-col">
+    <Toast position="bottom-right" />
     <DefaultLayoutHeader />
     <div class="flex-1 flex h-full">
       <aside class="border-r-[1px] border-surface-200 w-[250px] flex flex-col pt-6 text-gray-900 font-medium">

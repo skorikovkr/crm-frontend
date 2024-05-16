@@ -20,7 +20,7 @@
       Сумма: {{ formatCurrency(income) }}
     </p>
     <p class="mt-4 font-medium text-xl">
-      Конверсия: {{ data?.conversion * 100 }}%
+      Конверсия: {{ (data?.conversion * 100).toString().substring(0,4) }}%
     </p>
   </div>
 </template>

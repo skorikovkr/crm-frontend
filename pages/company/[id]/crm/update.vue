@@ -113,15 +113,13 @@
           <Button
             type="submit"
             label="Сохранить"
+            class="w-[150px]"
           />
         </form>
       </Panel>
       <div class="flex flex-col gap-4">
         <Panel toggleable collapsed header="Наценки">
-          <Button
-            label="Редактировать"
-            @click="pricingDialogVisible = true"
-          />
+          <PricingEditor />
         </Panel>
         <Panel toggleable collapsed header="Сотрудники">
           <Button

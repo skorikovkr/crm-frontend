@@ -1,122 +1,117 @@
 <template>
   <div>
     <div class="grid grid-cols-2 gap-4">
-      <Panel header="Основная информация">
-        <form
-          id="postOrganization"
-          ref="updateOrganization"
-          enctype="multipart/form-data"
-          class="flex flex-col gap-2"
-          @submit.prevent="handleCreateOrganization"
-        >
-          <label for="name">Название:</label>
-          <InputText
-            id="name"
-            name="name"
-            :value="companyStore.current?.name"
-          />
-    
-          <label for="INN">ИНН:</label>
-          <InputText
-            id="INN"
-            name="INN"
-            :value="companyStore.current?.INN"
-          />
-    
-          <label for="OGRN">ОГРН:</label>
-          <InputText
-            id="OGRN"
-            name="OGRN"
-            :value="companyStore.current?.OGRN"
-          />
-    
-          <label for="KPP">КПП:</label>
-          <InputText
-            id="KPP"
-            name="KPP"
-            :value="companyStore.current?.KPP"
-          />
-    
-          <label for="BIK">БИК:</label>
-          <InputText
-            id="BIK"
-            name="BIK"
-            :value="companyStore.current?.BIK"
-          />
-    
-          <label for="bank_name">Банк:</label>
-          <InputText
-            id="bank_name"
-            name="bank_name"
-            :value="companyStore.current?.bank_name"
-          />
-    
-          <label for="correspondent_account">Корреспондентский счет:</label>
-          <InputText
-            id="correspondent_account"
-            name="correspondent_account"
-            :value="companyStore.current?.correspondent_account"
-          />
-    
-          <label for="description">Описание:</label>
-          <InputText
-            id="description"
-            name="description"
-            :value="companyStore.current?.description"
-          />
-    
-          <label for="address">Адрес:</label>
-          <InputText
-            id="address"
-            name="address"
-            :value="companyStore.current?.address"
-          />
-    
-          <label for="schedule">Расписание:</label>
-          <InputText
-            id="schedule"
-            name="schedule"
-            :value="companyStore.current?.schedule"
-          />
-    
-          <label for="phone">Телефон:</label>
-          <InputText
-            id="phone"
-            name="phone"
-            :value="companyStore.current?.phone"
-          />
-    
-          <label for="organization_type_id">Тип организации:</label>
-          <Dropdown
-            v-model="orgType"
-            :options="miscEnumStore.organizationTypes ?? undefined"
-            option-label="i18n"
-            label
-            placeholder="Тип организации:"
-            class="w-full md:w-14rem"
-          />
-          <input
-            type="text"
-            name="organization_type_id"
-            hidden
-            :value="orgType?.id"
+      <div>
+        <Panel header="Основная информация">
+          <form
+            id="postOrganization"
+            ref="updateOrganization"
+            enctype="multipart/form-data"
+            class="flex flex-col gap-2"
+            @submit.prevent="handleCreateOrganization"
           >
-    
-          <label for="logo">Логотип:</label>
-          <input
-            id="logo"
-            type="file"
-            name="logo"
-            accept="image/png, image/jpeg"
-          >
-    
-          <Button
-            type="submit"
-            label="Сохранить"
-            class="w-[150px]"
-          />
-        </form>
-      </Panel>
+            <label for="name">Название:</label>
+            <InputText
+              id="name"
+              name="name"
+              :value="companyStore.current?.name"
+            />
+      
+            <label for="INN">ИНН:</label>
+            <InputText
+              id="INN"
+              name="INN"
+              :value="companyStore.current?.INN"
+            />
+      
+            <label for="OGRN">ОГРН:</label>
+            <InputText
+              id="OGRN"
+              name="OGRN"
+              :value="companyStore.current?.OGRN"
+            />
+      
+            <label for="KPP">КПП:</label>
+            <InputText
+              id="KPP"
+              name="KPP"
+              :value="companyStore.current?.KPP"
+            />
+      
+            <label for="BIK">БИК:</label>
+            <InputText
+              id="BIK"
+              name="BIK"
+              :value="companyStore.current?.BIK"
+            />
+      
+            <label for="bank_name">Банк:</label>
+            <InputText
+              id="bank_name"
+              name="bank_name"
+              :value="companyStore.current?.bank_name"
+            />
+      
+            <label for="correspondent_account">Корреспондентский счет:</label>
+            <InputText
+              id="correspondent_account"
+              name="correspondent_account"
+              :value="companyStore.current?.correspondent_account"
+            />
+      
+            <label for="address">Адрес:</label>
+            <InputText
+              id="address"
+              name="address"
+              :value="companyStore.current?.address"
+            />
+      
+            <label for="schedule">Расписание:</label>
+            <InputText
+              id="schedule"
+              name="schedule"
+              :value="companyStore.current?.schedule"
+            />
+      
+            <label for="phone">Телефон:</label>
+            <InputText
+              id="phone"
+              name="phone"
+              :value="companyStore.current?.phone"
+            />
+      
+            <label for="organization_type_id">Тип организации:</label>
+            <Dropdown
+              v-model="orgType"
+              :options="miscEnumStore.organizationTypes ?? undefined"
+              option-label="i18n"
+              label
+              placeholder="Тип организации:"
+              class="w-full md:w-14rem"
+            />
+            <input
+              type="text"
+              name="organization_type_id"
+              hidden
+              :value="orgType?.id"
+            >
+      
+            <label for="logo">Логотип:</label>
+            <input
+              id="logo"
+              type="file"
+              name="logo"
+              accept="image/png, image/jpeg"
+            >
+      
+            <Button
+              type="submit"
+              label="Сохранить"
+              class="w-[150px]"
+            />
+          </form>
+        </Panel>
+      </div>
       <div class="flex flex-col gap-4">
         <Panel toggleable collapsed header="Наценки">
           <PricingEditor />

@@ -29,7 +29,10 @@
       >
         <div class="flex flex-col gap-1">
           <div>
-            <label :for="`image_${i}`" class="mr-2">Фото {{ i }}:</label>
+            <label
+              :for="`image_${i}`"
+              class="mr-2"
+            >Фото {{ i }}:</label>
             <input
               type="file"
               :name="`image_${i}`"
@@ -37,7 +40,10 @@
             >
           </div>
           <div>
-            <label :for="`image_description_${i}`" class="mr-2">Описание изображения:</label>
+            <label
+              :for="`image_description_${i}`"
+              class="mr-2"
+            >Описание изображения:</label>
             <InputText
               :name="`image_description_${i}`"
             />
@@ -46,7 +52,10 @@
         </div>
       </div>
       <div class="flex justify-between">
-        <Button label="Добавить фото" @click="handleAddPhotoClick" />
+        <Button
+          label="Добавить фото"
+          @click="handleAddPhotoClick"
+        />
         <Button
           type="submit"
           label="Сохранить"

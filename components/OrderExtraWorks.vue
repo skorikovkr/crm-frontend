@@ -5,7 +5,11 @@
       <InputText v-model="name" />
       <label class="self-center">Сумма</label>
       <InputNumber v-model="price" />
-      <Button label="Добавить" class="ml-6" @click="handleAddExtraWorkClick" />
+      <Button
+        label="Добавить"
+        class="ml-6"
+        @click="handleAddExtraWorkClick"
+      />
     </div>
     <DataTable
       :value="extraWorks"

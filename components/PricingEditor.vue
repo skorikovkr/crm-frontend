@@ -1,8 +1,24 @@
 <template>
   <div class="pricing-editor">
     <div class="flex flex-wrap gap-2 mb-4 justify-end">
-      <Button type="button" severity="secondary" text size="small" icon="pi pi-plus" label="Развернуть все" @click="expandAll" />
-      <Button type="button" severity="secondary" text size="small" icon="pi pi-minus" label="Свернуть все" @click="collapseAll" />
+      <Button
+        type="button"
+        severity="secondary"
+        text
+        size="small"
+        icon="pi pi-plus"
+        label="Развернуть все"
+        @click="expandAll"
+      />
+      <Button
+        type="button"
+        severity="secondary"
+        text
+        size="small"
+        icon="pi pi-minus"
+        label="Свернуть все"
+        @click="collapseAll"
+      />
     </div>
     <div class="flex justify-between font-medium text-sm">
       <div>Категория</div>
@@ -140,7 +156,7 @@ const handleSaveButtonPressed = async () => {
 }
 
 const expandAll = () => {
-    for (let node of nodes.value) {
+    for (const node of nodes.value) {
         expandNode(node);
     }
 
@@ -155,7 +171,7 @@ const expandNode = (node) => {
     if (node.children && node.children.length) {
         expandedKeys.value[node.key] = true;
 
-        for (let child of node.children) {
+        for (const child of node.children) {
             expandNode(child);
         }
     }

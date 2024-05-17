@@ -53,7 +53,10 @@
       <Panel header="Информация по заказу">
         <OrderMainInfo :order="order" />
       </Panel>
-      <Panel header="Документы" class="bg-white">
+      <Panel
+        header="Документы"
+        class="bg-white"
+      >
         <OrderDocuments :order="order" />
       </Panel>
     </div>

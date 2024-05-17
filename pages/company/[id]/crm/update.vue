@@ -113,17 +113,29 @@
         </Panel>
       </div>
       <div class="flex flex-col gap-4">
-        <Panel toggleable collapsed header="Наценки">
+        <Panel
+          toggleable 
+          collapsed 
+          header="Наценки"
+        >
           <PricingEditor />
         </Panel>
-        <Panel toggleable collapsed header="Сотрудники">
+        <Panel
+          toggleable
+          collapsed
+          header="Сотрудники"
+        >
           <EmployeeEditor />
           <Button
             label="Добавить сотрудника"
             @click="addUserDialogVisible = true"
           />
         </Panel>
-        <Panel toggleable collapsed header="Настройки публичной страницы">
+        <Panel
+          toggleable
+          collapsed
+          header="Настройки публичной страницы"
+        >
           <PortfolioEditor
             @public-info-updated="handlePublicInfoUpdated"
           />

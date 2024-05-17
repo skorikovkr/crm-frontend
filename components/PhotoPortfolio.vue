@@ -1,5 +1,9 @@
 <template>
-  <Galleria :value="companyStore.current?.portfolio" :responsiveOptions="responsiveOptions" :numVisible="5">
+  <Galleria
+    :value="companyStore.current?.portfolio"
+    :responsive-options="responsiveOptions"
+    :num-visible="5"
+  >
     <template #item="slotProps">
       <img
         :src="config.public.backendUrl + '/' + slotProps.item.image_src?.replace('public', 'storage')"
@@ -19,7 +23,9 @@
       >
     </template>
     <template #caption="slotProps">
-      <div class="text-xl mb-2 font-bold">{{ slotProps.item.description }}</div>
+      <div class="text-xl mb-2 font-bold">
+        {{ slotProps.item.description }}
+      </div>
     </template>
   </Galleria>
 </template>

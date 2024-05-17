@@ -1,14 +1,25 @@
 
 <template>
   <div>
-    <h1 class="mb-4 font-medium text-2xl">Воронка продаж</h1>
+    <h1 class="mb-4 font-medium text-2xl">
+      Воронка продаж
+    </h1>
     <p>Параметры:</p>
     <div class="flex gap-2 mb-2 items-center">
       <label>От</label>
-      <Calendar v-model="startDate" dateFormat="dd.mm.yy" />
+      <Calendar
+        v-model="startDate"
+        date-format="dd.mm.yy"
+      />
       <label>До</label>
-      <Calendar v-model="endDate" dateFormat="dd.mm.yy" />
-      <Button label="Получить отчет" @click="handleGetReportClick" />
+      <Calendar
+        v-model="endDate"
+        date-format="dd.mm.yy"
+      />
+      <Button
+        label="Получить отчет"
+        @click="handleGetReportClick"
+      />
     </div>
     <Chart
       ref="bar"

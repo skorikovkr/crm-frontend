@@ -11,6 +11,11 @@ const items = ref([
                 icon: 'pi pi-chart-line',
                 url: `/company/${companyStore.current?.id}/crm/reports/purchase-funnel`
             },
+            {
+                label: 'Эффективность менеджеров',
+                icon: 'pi pi-users',
+                url: `/company/${companyStore.current?.id}/crm/reports/manager-report`
+            },
         ]
     }
 ]);

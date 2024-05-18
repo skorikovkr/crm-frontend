@@ -20,7 +20,7 @@
         @click="collapseAll"
       />
     </div>
-    <div class="flex justify-between font-medium text-sm">
+    <div class="flex justify-between font-medium text-sm px-4">
       <div>Категория</div>
       <div>%</div>
     </div>

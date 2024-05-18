@@ -44,13 +44,13 @@ const miscStore = useMiscEnumsStore();
 const items = ref([
    "Saved",
    "InProgress",
-   "WaitForClientPreOrder",
-   "SendOrderToFF",
-   "WaitPreOrderFF",
-   "WaitForDetailsDeliveryFF",
-   "WaitForPayOtherHalfForFF",
+   //"WaitForClientPreOrder",
+   //"SendOrderToFF",
+   //"WaitPreOrderFF",
+   //"WaitForDetailsDeliveryFF",
+   //"WaitForPayOtherHalfForFF",
    "Production",
-   "WaitForClientPayOtherHalf",
+   "WaitForFinalPayment",
    "ReadyForShipment",
    "Completed"
 ]);

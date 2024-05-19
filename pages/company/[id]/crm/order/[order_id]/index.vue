@@ -3,7 +3,7 @@
     <div class="mb-6">
       <div class="flex items-center mb-6 gap-4">
         <h1 class="font-semibold text-2xl">
-          Заказ {{ order.name }}
+          Заказ {{ order.name }} <span class="italic text-xl">(код: {{ order.id }}.{{ order.name.replaceAll(' ', '_') }}.{{ order.version }})</span>
         </h1>
         <Button
           v-show="!isOrderCanceled && !isOrderCompleted && !isOrderFailed"

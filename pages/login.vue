@@ -46,14 +46,14 @@ const {
       <div>
         <label for="email">Почта</label>
         <div>{{ errors.email?.[0] }}</div>
-        <input
+        <InputText
           id="email"
           v-model="data.email"
           type="email"
           class="block mt-1 w-full"
           required
           autoFocus
-        >
+        />
       </div>
 
       <div class="mt-4">
@@ -64,14 +64,14 @@ const {
         >
           {{ err }}
         </div>
-        <input
+        <InputText
           id="password"
           v-model="data.password"
           type="password"
           class="block mt-1 w-full"
           required
           autoComplete="current-password"
-        >
+        />
       </div>
 
       <!-- Remember Me -->
@@ -92,12 +92,13 @@ const {
       </div>
 
       <div class="flex items-center justify-end mt-4">
-        <input 
-          :disabled="inProgress" 
+        <Button type="submit" :disabled="inProgress" label="Логин"></Button>
+        <!-- <input 
+           
           class="ml-3" 
           type="submit" 
-          value="Логин"
-        >
+          value=""
+        > -->
       </div>
     </form>
   </div>

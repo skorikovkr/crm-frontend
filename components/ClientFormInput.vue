@@ -18,6 +18,7 @@
     <Dialog
       v-model:visible="clientPickerVisible"
       :draggable="false"
+      maximizable 
       modal
       :header="createDialogHeader"
     >

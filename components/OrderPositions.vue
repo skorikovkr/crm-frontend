@@ -11,7 +11,24 @@
         field="name"
         header="Наименование"
         sortable
-      />
+      >
+        <template #body="slotProps">
+          <div class="flex flex-col">
+            <div>
+              {{ slotProps.data.name }}
+            </div>
+            <div class="flex gap-2">
+              <div v-for="property in (slotProps.data.properties ?? []).filter(v => v.name == 'width' || v.name == 'length' || v.name == 'pack').map(v => {
+                if (v.name == 'width') return { name: 'Ширина', value: v.value + 'мм' };
+                if (v.name == 'length') return { name: 'Длина', value: v.value + 'мм' };
+                if (v.name == 'pack') return { name: 'Упаковка', value: v.value };
+              })" class="font-medium">
+                {{ property.name }}: {{ property.value }}
+              </div>
+            </div>
+          </div>
+        </template>
+      </Column>
       <Column
         field="price"
         header="Цена"

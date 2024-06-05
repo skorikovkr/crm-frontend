@@ -1,10 +1,12 @@
 <template>
-  <div class="grid grid-cols-2">
+  
     <form
       ref="createOrderForm"
       class="flex flex-col gap-2"
       @submit.prevent="handleCreateOrder"
     >
+    <div class="grid grid-cols-2">
+        <div class="flex flex-col gap-2">
       <label for="name">Наименование:</label>
       <InputText
         v-model="name"
@@ -17,6 +19,7 @@
         name="address" 
       />
       
+      <label for="calculator_id">Калькулятор:</label>
       <Dropdown
         v-model="calculator"
         :options="miscStore.calculators ?? undefined" 
@@ -47,6 +50,7 @@
         placeholder="Выберите заказ"
       />
       
+      <label for="order_file">Файл калькулятора:</label>
       <input
         type="file"
         name="order_file" 
@@ -54,11 +58,15 @@
         @change.capture="handleFileSelect"
       >
       
-      <label>Цена:</label>
-      <InputText 
-        :value="totalPrice.toString()"
-        :readonly="true"
-      />
+      <label>Сумма:</label>
+      <div>
+        <InputText 
+          :value="formatCurrency(totalPrice)"
+          :readonly="true"
+        />
+      </div>
+    </div>
+  </div>
 
       <OrderPositions
         :positions="orderPositions"
@@ -71,7 +79,6 @@
         />
       </div>
     </form>
-  </div>
 </template>
   
 <script lang="ts" setup>
@@ -113,7 +120,7 @@ const handleFileSelect = (event: any) => {
 }
 
 const handleFileLoad = async (event: any) => {
-  let pricedPositions = JSON.parse(event.target.result)['positions'];
+  let pricedPositions = JSON.parse(event.target.result);
   pricedPositions = await $laravelFetch<OrderedPositions>(`/api/organizations/${companyStore.current?.id}/orders/get-priced-positions`, {
     method: "POST",
     body: {
